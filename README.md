@@ -1,15 +1,23 @@
 # Project-Theater
 Project for CS472 Software Engineering 
 
-<strong>Team members</strong>
-Brian Elder
-Pedro Damian Marta
-Preston Feagan
-Skyler Landess
+<p><strong>Team members</strong></p>
+<ul>
+	<li>Brian Elder</li>
+	<li>Pedro Damian Marta</li>
+	<li>Preston Feagan</li>
+	<li>Skyler Landess</li>
+</ul>
+</p>
 
-<strong>Stage 0 Team Leader:</strong> Pedro Damian Marta
-<strong>Stage 1 Team Leader:</strong> TBA
-<strong>Stage 2 Team Leader:</strong> TBA
-<strong>Stage 3 Team Leader:</strong> TBA
-<strong>Stage 4 Team Leader:</strong> TBA
+<p><strong>Stage 0 Team Leader:</strong> Pedro Damian Marta</p>
+
+<p><strong>Stage 1 Team Leader:</strong> TBA</p>
+
+<p><strong>Stage 2 Team Leader:</strong> TBA</p>
+
+<p><strong>Stage 3 Team Leader:</strong> TBA</p>
+
+<p><strong>Stage 4 Team Leader:</strong> TBA</p>
+
 
