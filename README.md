@@ -1,4 +1,5 @@
 # Project-Theater
+
 Project for CS472 Software Engineering 
 
 <p><strong>Team members</strong></p>
@@ -19,5 +20,4 @@ Project for CS472 Software Engineering
 <p><strong>Stage 3 Team Leader:</strong> TBA</p>
 
 <p><strong>Stage 4 Team Leader:</strong> TBA</p>
-
 
