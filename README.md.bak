@@ -15,9 +15,9 @@ Project for CS472 Software Engineering
 
 <p><strong>Stage 1 Team Leader:</strong> Brian Elder</p>
 
-<p><strong>Stage 2 Team Leader:</strong> TBA</p>
+<p><strong>Stage 2 Team Leader:</strong> Preston Feagan</p>
 
-<p><strong>Stage 3 Team Leader:</strong> TBA</p>
+<p><strong>Stage 3 Team Leader:</strong> Pedro Damian Marta</p>
 
-<p><strong>Stage 4 Team Leader:</strong> TBA</p>
+<p><strong>Stage 4 Team Leader:</strong> Brian Elder</p>
 
