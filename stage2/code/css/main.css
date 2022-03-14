@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color:#FFF;
+}
+.navbar{
+  background-color:#333 ;
+  padding:15px;
+ 
+}
+
+@media (min-width: 768px) {
+  .carousel-inner {
+    display: flex;
+  }
+  .carousel-item {
+    margin-right: 0;
+    flex: 0 0 33.333333%;
+    display: block;
+  }
+}
