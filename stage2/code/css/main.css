@@ -3,11 +3,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background-color:#FFF;
 }
-.navbar{
-  background-color:#333 ;
-  padding:15px;
- 
-}
+
 
 @media (min-width: 768px) {
   .carousel-inner {
@@ -18,4 +14,8 @@ body {
     flex: 0 0 33.333333%;
     display: block;
   }
+}
+
+.black{
+  background-color: #333;
 }
