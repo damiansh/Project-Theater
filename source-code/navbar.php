@@ -1,24 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Los Portales</title>
-  <!-- CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
-
-  <!-- javascript -->
-  <script src="js/jquery-3.6.0.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
-
-
-  <!-- MetaTAGS -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-</head>
-<body>
-  <div class="container black">
+<div class="container black">
     <nav class="navbar navbar-expand-sm navbar-dark">
       <a href="#" class="navbar-brand">Los Portales</a>
       <button
@@ -34,11 +14,11 @@
       </button>
       <div class="collapse navbar-collapse" id="toggleMobileMenu">
         <ul id="navbar" class="navbar-nav ms-auto text-center">
-          <li><a class="nav-link" href="#">Home</a></li>
+          <li><a class="nav-link" href="index.php">Home</a></li>
           <li><a class="nav-link" href="#">Tickets</a></li>
           <script>
             //construct other options dynamically, probably to later to integrate with login system
-            var liElement = [{name:"Sign-in", url:"#sign"},{name:"Register", url:"#register"}]
+            var liElement = [{name:"Sign-in", url:"login.php"},{name:"Register", url:"register.php"}]
             navBar = document.getElementById("navbar");
             navConstructor(liElement,navBar);
           </script>
@@ -48,10 +28,3 @@
 
     </nav>
   </div>
-  <div class="container">
-    Carrousel placeholder
-   
-  </div>
-
-</body>
-</html>
