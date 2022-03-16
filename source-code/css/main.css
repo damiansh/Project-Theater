@@ -20,3 +20,7 @@ body {
   background-color: #333;
 }
 
+.loginError{
+  color:red;
+  font-weight: bold;
+}

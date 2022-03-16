@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Los Portales</title>
+  <title>Login</title>
   <?php include 'scripts.php';?>
 
 </head>
@@ -10,16 +10,23 @@
 <?php include 'navbar.php';?>
 
   <div class="container">
-    <form action="/action_page.php" method="post">
+    <form action="includes/included-login.php" method="post">
 
     <div class="container">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <?php
+        if(isset($_SESSION["error"])){
+          echo "<p class='loginError'>{$_SESSION["error"]}</p>";
+          session_unset();
+          session_destroy();
+        }
+      ?>
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" required>
 
       <label for="psw"><b>Password</b></label>
       <input type="password" placeholder="Enter Password" name="psw" required>
           
-      <button type="submit">Login</button>
+      <button type="submit" name="login">Login</button>
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>

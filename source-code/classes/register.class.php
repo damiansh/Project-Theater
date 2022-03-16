@@ -7,11 +7,11 @@ class Register extends PortalesDB{
         $statement = $this->connect()->prepare($query);
 
         //hash password !IMPORTANT for security
-        $hashedPsw = password_hash($psw,PASSWORD_DEFAULT);
+        $hashedPsw = password_hash($psw, PASSWORD_DEFAULT);
 
         if(!$statement->execute(array($email, $hashedPsw))){
             $statement = null;
-            header("location: ../index.php?error=statementFailedSetLive");
+            header("location: ../register.php?error=settingUser");
             exit();
         }
 
@@ -25,7 +25,7 @@ class Register extends PortalesDB{
 
         if(!$statement->execute(array($email))){
             $statement = null;
-            header("location: ../index.php?error=statementFailedCheckLive");
+            header("location: ../register.php?error=checkingEmail");
             exit();
         }
         $resultCheck;

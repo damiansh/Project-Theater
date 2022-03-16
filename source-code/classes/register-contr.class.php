@@ -14,22 +14,30 @@ class RegisterContr extends Register{
     public function registerUser(){
         if($this->missingInput()==true){
             //Missing some of the inputs
-            header("location: ../index.php?error=missingInput". $this->email);
+            session_start();
+            $_SESSION["error"] = "Error: Fill in all the fields.";
+            header("location: ../register.php?signupError");
             exit();
         }
         if($this->invalidEmail()==true){
             //Invalid email format
-            header("location: ../index.php?error=invalidEmail");
+            session_start();
+            $_SESSION["error"] = "Error: Invalid e-mail.";
+            header("location: ../register.php?signupError");
             exit();
         }
         if($this->pswMatch()==false){
             //Passwords don't match
-            header("location: ../index.php?error=passwordsNotMatch");
+            session_start();
+            $_SESSION["error"] = "Error: The passwords you've entered don't match.";
+            header("location: ../register.php?signupError");
             exit();
         }
         if($this->emailUsed()==true){
             //Email already exists
-            header("location: ../index.php?error=emailAlreadyUsed");
+            session_start();
+            $_SESSION["error"] = "Error: This email is already in use.";
+            header("location: ../register.php?signupError");
             exit();
         }
         $this->setUser($this->email,$this->psw);
@@ -38,7 +46,7 @@ class RegisterContr extends Register{
     //Error handlers for registration
     private function missingInput(){
         $result = false;
-        if(empty($this->email || $this->psw || $this->pswRepeat)){
+        if(empty($this->email) || empty($this->psw) || empty($this->pswRepeat)){
             $result = true;
         }
         return $result;

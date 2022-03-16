@@ -1,6 +1,7 @@
+<?php session_start(); ?>
 <div class="container black">
     <nav class="navbar navbar-expand-sm navbar-dark">
-      <a href="#" class="navbar-brand">Los Portales</a>
+      <a href="index.php" class="navbar-brand">Los Portales</a>
       <button
         class="navbar-toggler" 
         type="button"
@@ -14,15 +15,24 @@
       </button>
       <div class="collapse navbar-collapse" id="toggleMobileMenu">
         <ul id="navbar" class="navbar-nav ms-auto text-center">
+
+
+          <?php if(isset($_SESSION["userid"])){ ?>
           <li><a class="nav-link" href="index.php">Home</a></li>
           <li><a class="nav-link" href="#">Tickets</a></li>
-          <script>
-            //construct other options dynamically, probably to later to integrate with login system
-            var liElement = [{name:"Sign-in", url:"login.php"},{name:"Register", url:"register.php"}]
-            navBar = document.getElementById("navbar");
-            navConstructor(liElement,navBar);
-          </script>
+          <li><a class='nav-link' href='includes/included-logout.php'>Logout [<?php  echo $_SESSION["userEmail"]; ?>] </a></li>                   
+          <?php 
+          } 
+          else{
 
+            ?>
+          <li><a class="nav-link" href="index.php">Home</a></li>
+          <li><a class="nav-link" href="#">Tickets</a></li>
+          <li><a class="nav-link" href="login.php">Login</a></li>
+          <li><a class="nav-link" href="register.php">Register</a></li>
+          <?php 
+          } 
+         ?>            
         </ul>
       </div>
 

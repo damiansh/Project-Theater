@@ -14,6 +14,13 @@
     <div class="container">
       <h1>Register</h1>
       <p>Please fill in this form to create an account.</p>
+      <?php
+        if(isset($_SESSION["error"])){
+          echo "<p class='loginError'>{$_SESSION["error"]}</p>";
+          session_unset();
+          session_destroy();
+        }
+      ?>
       <hr>
 
       <label for="email"><b>Email</b></label>
