@@ -15,7 +15,7 @@ if(isset($_GET['email']) and isset($_GET['code']))
     $auth->authUser();
      //Get the user to the login page so they can log-in
     session_start();
-    $_SESSION["message"] = "You have sucesfully confirmed your account. You can log-in now.";
+    $_SESSION["message"] = "You have successfully confirmed your account. You can login now.";
     header("location: ../login.php?emailConfirmed");
 
 }
