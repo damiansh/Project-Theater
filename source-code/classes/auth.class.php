@@ -18,13 +18,14 @@ class Auth extends PortalesDB{
         if($statement->rowCount()==0){
             $statement = null;
             session_start();
-            $_SESSION["message"] = "Error: The e-mail you’ve tried to confirm doesn't exist.";
+            $_SESSION["message"] = "Error: The e-mail you've tried to confirm doesn't exist.";
             header("location: ../register.php?loginError");
             exit();          
         }
 
         $user = $statement->fetchAll(PDO::FETCH_ASSOC); //fetch al the user data based on email
         $checkCode = password_verify($code,$user[0]["activation_code"]); //check hashed pasword
+        $active_status = $user[0]["active"];
 
         //If false the link used is false, if not, confirm account
         if($checkCode == false){
@@ -33,6 +34,11 @@ class Auth extends PortalesDB{
             $_SESSION["message"] = "Error: The link used is invalid.";
             header("location: ../register.php?loginError");
             exit();  
+        }
+        elseif($active_status ==1){
+            $statement = null;
+            echo "Your account is already activated.";
+            exit(); 
         }
         elseif($checkCode==true){
             $query = 'UPDATE users SET active = 1 WHERE user_email = ?;'; //confirming account

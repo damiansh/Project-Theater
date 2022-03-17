@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Los Portales</title>
-  <?php include 'scripts.php';?>
-
+  <title>Registration</title>
+  <?php include 'scripts.php';
+    if(isset($_SESSION["userid"])) 
+      header("location: index.php");
+  ?>
+  
 </head>
 <body>
 

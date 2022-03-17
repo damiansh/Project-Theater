@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <div class="container black">
     <nav class="navbar navbar-expand-sm navbar-dark">
       <a href="index.php" class="navbar-brand">Los Portales</a>

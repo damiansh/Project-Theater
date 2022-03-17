@@ -48,8 +48,8 @@ class Register extends PortalesDB{
     protected function emailBody($activation,$email){
         $greeting = "Thank you for joining us on Los Portales Theatre!<br>";
         $hostname = getenv('HTTP_HOST');
-        $link ="http://{$hostname}/auth/activate.php?email={$email}&code={$activation}";
-       //local $link ="http://{$hostname}/losportales/auth/activate.php?email={$email}&code={$activation}";
+        //live $link ="http://{$hostname}/auth/activate.php?email={$email}&code={$activation}";
+        $link ="http://{$hostname}/losportales/auth/activate.php?email={$email}&code={$activation}";
         $a = "<a href='{$link}' target='_blank'>here</a>";
         $body ="{$greeting}Please click {$a} to confirm your account.";
         return "<html>{$body}</html>";

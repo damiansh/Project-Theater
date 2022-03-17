@@ -2,8 +2,11 @@
 <html>
 <head>
   <title>Login</title>
-  <?php include 'scripts.php';?>
-
+  <?php include 'scripts.php';
+    if(isset($_SESSION["userid"])) 
+      header("location: index.php");
+  ?>
+  
 </head>
 <body>
 
