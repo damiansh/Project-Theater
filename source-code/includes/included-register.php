@@ -16,7 +16,9 @@ if(isset($_POST["register"]))
     //Running error handlers and user registration
     $register->registerUser();
     
-    //Going to back to front page
-    header("location: ../index.php?sucessfullyRegistered");
+    //Going to back to registration page 
+    session_start();
+    $_SESSION["message"] = "A confirmation e-mail has been sent to your account.<br>Check your spam folder if you don't see the e-mail.";
+    header("location: ../register.php?confirmedEmail");
 
 }

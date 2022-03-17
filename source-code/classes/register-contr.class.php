@@ -15,28 +15,28 @@ class RegisterContr extends Register{
         if($this->missingInput()==true){
             //Missing some of the inputs
             session_start();
-            $_SESSION["error"] = "Error: Fill in all the fields.";
+            $_SESSION["message"] = "Error: Fill in all the fields.";
             header("location: ../register.php?signupError");
             exit();
         }
         if($this->invalidEmail()==true){
             //Invalid email format
             session_start();
-            $_SESSION["error"] = "Error: Invalid e-mail.";
+            $_SESSION["message"] = "Error: Invalid e-mail.";
             header("location: ../register.php?signupError");
             exit();
         }
         if($this->pswMatch()==false){
             //Passwords don't match
             session_start();
-            $_SESSION["error"] = "Error: The passwords you've entered don't match.";
+            $_SESSION["message"] = "Error: The passwords you've entered don't match.";
             header("location: ../register.php?signupError");
             exit();
         }
         if($this->emailUsed()==true){
             //Email already exists
             session_start();
-            $_SESSION["error"] = "Error: This email is already in use.";
+            $_SESSION["message"] = "Error: This email is already in use.";
             header("location: ../register.php?signupError");
             exit();
         }

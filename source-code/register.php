@@ -15,8 +15,8 @@
       <h1>Register</h1>
       <p>Please fill in this form to create an account.</p>
       <?php
-        if(isset($_SESSION["error"])){
-          echo "<p class='loginError'>{$_SESSION["error"]}</p>";
+        if(isset($_SESSION["message"])){
+          echo "<p class='nMessage'>{$_SESSION["message"]}</p>";
           session_unset();
           session_destroy();
         }

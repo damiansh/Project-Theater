@@ -14,8 +14,8 @@
 
     <div class="container">
       <?php
-        if(isset($_SESSION["error"])){
-          echo "<p class='loginError'>{$_SESSION["error"]}</p>";
+        if(isset($_SESSION["message"])){
+          echo "<p class='nMessage'>{$_SESSION["message"]}</p>";
           session_unset();
           session_destroy();
         }

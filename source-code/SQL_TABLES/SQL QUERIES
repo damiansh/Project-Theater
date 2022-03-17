@@ -1,0 +1,8 @@
+CREATE TABLE users
+(
+    user_id int(11) auto_increment PRIMARY KEY not null,
+    user_email      varchar(255) NOT NULL,
+    user_psw        varchar(255) NOT NULL,
+    active          tinyint(1)  DEFAULT 0 not null,
+    activation_code   varchar(255) NOT NULL
+);

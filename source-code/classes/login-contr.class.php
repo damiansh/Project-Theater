@@ -13,7 +13,7 @@ class LoginContr extends Login{
         if($this->missingInput()==true){
             //Missing some of the inputs
             session_start();
-            $_SESSION["error"] = "Error: Fill in all the fields.";
+            $_SESSION["message"] = "Error: Fill in all the fields.";
             header("location: ../login.php?loginError");
             exit();
         }
