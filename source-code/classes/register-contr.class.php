@@ -4,11 +4,20 @@ class RegisterContr extends Register{
     private $email;
     private $psw;
     private $pswRepeat;
+    private $fname;
+    private $lname;
+    private $birthday;
+    private $phone;
     
-    public function __construct($email,$psw,$pswRepeat){
+    public function __construct($email,$psw,$pswRepeat,$fname,$lname,$birthday,$phone){
         $this->email = $email;
         $this->psw = $psw;
         $this->pswRepeat = $pswRepeat;
+        $this->fname = $fname;
+        $this->lname = $lname;
+        $this->birthday = $birthday;
+        $this->phone = $phone;
+
     }
 
     public function registerUser(){
@@ -40,13 +49,21 @@ class RegisterContr extends Register{
             header("location: ../register.php?signupError");
             exit();
         }
-        $this->setUser($this->email,$this->psw);
+        $this->setUser($this->email,$this->psw,$this->fname,$this->lname,$this->birthday,$this->phone);
     }
 
     //Error handlers for registration
     private function missingInput(){
         $result = false;
-        if(empty($this->email) || empty($this->psw) || empty($this->pswRepeat)){
+        $cEmail = empty($this->email);
+        $cp = empty($this->psw);
+        $cp2 = empty($this->pswRepeat);
+        $cfn = empty($this->fname);
+        $cln = empty($this->lname);
+        $cBirthday = empty($this->birthday);
+        $cPhone = empty($this->phone);
+
+        if($cEmail || $cp || $cp2 || $cfn || $cln || $cBirthday || $cPhone){
             $result = true;
         }
         return $result;

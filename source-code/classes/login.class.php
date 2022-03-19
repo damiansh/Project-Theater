@@ -40,6 +40,8 @@ class Login extends PortalesDB{
             session_regenerate_id(); //to prevent session fixation attacks
             $_SESSION["userid"] = $user[0]["user_id"];
             $_SESSION["userEmail"] = $user[0]["user_email"];
+            $_SESSION["userFN"] = $user[0]["user_fname"];
+            $_SESSION["userLN"] = $user[0]["user_lname"];
             $statement = null;
         }
         else{

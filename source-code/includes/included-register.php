@@ -6,12 +6,16 @@ if(isset($_POST["register"]))
     $email = $_POST["email"];
     $psw = $_POST["psw"];
     $pswRepeat = $_POST["psw-repeat"];
+    $fname = $_POST["fname"];
+    $lname = $_POST["lname"];
+    $birthday = $_POST["birthday"];
+    $phone = $_POST["phone"];
 
     //Instantiate Register  Contr class
     include "../classes/db.class.php"; // needs to be loaded first
     include "../classes/register.class.php";
     include "../classes/register-contr.class.php";
-    $register = new RegisterContr($email,$psw,$pswRepeat);
+    $register = new RegisterContr($email,$psw,$pswRepeat,$fname,$lname,$birthday,$phone);
 
     //Running error handlers and user registration
     $register->registerUser();

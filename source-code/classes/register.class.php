@@ -2,8 +2,8 @@
 
 class Register extends PortalesDB{
 
-    protected function setUser($email,$psw){
-        $query = 'INSERT INTO users (user_email, user_psw,activation_code) VALUES (?,?,?);';
+    protected function setUser($email,$psw,$fname,$lname,$birthday,$phone){
+        $query = 'INSERT INTO users (user_email, user_psw, user_fname, user_lname, user_birthday, user_phone, activation_code) VALUES (?,?,?,?,?,?,?);';
         $statement = $this->connect()->prepare($query);
 
         //hash password and activation code !IMPORTANT for security
@@ -12,7 +12,7 @@ class Register extends PortalesDB{
         $activation = password_hash($code,PASSWORD_DEFAULT);
 
         //this checks if the query is executed sucesfully 
-        if(!$statement->execute(array($email, $hashedPsw,$activation))){
+        if(!$statement->execute(array($email, $hashedPsw, $fname, $lname, $birthday, $phone, $activation))){
             $statement = null;
             header("location: ../register.php?error=settingUser");
             exit();
@@ -20,7 +20,7 @@ class Register extends PortalesDB{
         //we send confirmation email 
         require 'sendEmail.php';
         require '../vendor/autoload.php';
-        portalesEmail($email,"Los Portales Theatre Email Confirmation",$this->emailBody($code,$email));
+        portalesEmail($email,"Los Portales Theatre Email Confirmation",$this->emailBody($code,$email,$fname,$lname));
         $statement = null;
     
     }
@@ -45,12 +45,12 @@ class Register extends PortalesDB{
         return $resultCheck;
     }
 
-    protected function emailBody($activation,$email){
-        $greeting = "Thank you for joining us on Los Portales Theatre!<br>";
+    protected function emailBody($activation,$email, $fname, $lname){
+        $greeting = "Thank you <strong>{$fname} {$lname}</strong> for joining us on Los Portales Theatre!<br>";
         $hostname = getenv('HTTP_HOST');
-        //live $link ="http://{$hostname}/auth/activate.php?email={$email}&code={$activation}";
-        $link ="http://{$hostname}/losportales/auth/activate.php?email={$email}&code={$activation}";
-        $a = "<a href='{$link}' target='_blank'>here</a>";
+        $link ="http://{$hostname}/auth/activate.php?email={$email}&code={$activation}";
+        $link ="http://{$hostname}/losportales/auth/activate.php?email={$email}&code={$activation}"; //comment this when testing live
+        $a = "<a href='{$link}' target='_blank'><strong>here</strong></a>";
         $body ="{$greeting}Please click {$a} to confirm your account.";
         return "<html>{$body}</html>";
     }
