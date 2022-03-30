@@ -10,3 +10,12 @@ CREATE TABLE customers
     active          tinyint(1)  DEFAULT 0 not null,
     activation_code   varchar(255) NOT NULL
 );
+
+CREATE TABLE admin
+(
+    user_id int(11) auto_increment PRIMARY KEY not null,
+    user_email      varchar(255) NOT NULL UNIQUE,
+    user_psw        varchar(255) NOT NULL,
+    active          tinyint(1)  DEFAULT 0 not null,
+    activation_code   varchar(255) //used to change password
+);

@@ -3,7 +3,7 @@
 class Register extends PortalesDB{
 
     protected function setUser($email,$psw,$fname,$lname,$birthday,$phone){
-        $query = 'INSERT INTO users (user_email, user_psw, user_fname, user_lname, user_birthday, user_phone, activation_code) VALUES (?,?,?,?,?,?,?);';
+        $query = 'INSERT INTO customers (user_email, user_psw, user_fname, user_lname, user_birthday, user_phone, activation_code) VALUES (?,?,?,?,?,?,?);';
         $statement = $this->connect()->prepare($query);
 
         //hash password and activation code !IMPORTANT for security
@@ -26,7 +26,7 @@ class Register extends PortalesDB{
     }
     
     protected function checkEmail($email){
-        $query = 'SELECT user_email FROM users WHERE user_email = ?;';
+        $query = 'SELECT user_email FROM customers WHERE user_email = ?;';
         $statement = $this->connect()->prepare($query);
 
         if(!$statement->execute(array($email))){

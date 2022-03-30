@@ -16,7 +16,7 @@
       <?php if (isset($_SESSION["userid"])): ?>
         <h1 class="eTitle display-2 text-center">Welcome <?php echo $_SESSION["userFN"]; ?>!!</h1>
       <?php else: ?>
-        <h1 class="eTitle display-2 text-center">Welcome Guess!!</h1>
+        <h1 class="eTitle display-2 text-center">Welcome Guest!!</h1>
       <?php endif; ?>
     </div>
   </div>

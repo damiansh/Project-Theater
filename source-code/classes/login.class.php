@@ -3,14 +3,17 @@
 class Login extends PortalesDB{
 
     //Method that retrieves user info based on email entered
-    protected function getUser($email,$psw){
-        $query = 'SELECT * FROM users WHERE user_email = ?;';
+    protected function getUser($email,$psw,$m,$destination){
+        $query = 'SELECT * FROM customers WHERE user_email = ?;';
+        if($m){
+            $query = 'SELECT * FROM admin WHERE user_email = ?;';
+        }
         $statement = $this->connect()->prepare($query);
         
         //to check if query was sucesfully run
         if(!$statement->execute(array($email))){
             $statement = null;
-            header("location: ../login.php?error=getUserFailed");
+            header($destination."error=getUserFailed");
             exit();
         }
         
@@ -19,7 +22,7 @@ class Login extends PortalesDB{
             $statement = null;
             session_start();
             $_SESSION["message"] = "Error: The e-mail you’ve entered doesn't exist.";
-            header("location: ../login.php?loginError");
+            header($destination."loginError");
             exit();          
         }
 
@@ -32,23 +35,29 @@ class Login extends PortalesDB{
             $statement = null;
             session_start();
             $_SESSION["message"] = "Error: The password you’ve entered is incorrect.";
-            header("location: ../login.php?loginError");
+            header($destination."loginError");
             exit();  
         }
         elseif($checkPsw==true and $active==1){
             session_start();
             session_regenerate_id(); //to prevent session fixation attacks
-            $_SESSION["userid"] = $user[0]["user_id"];
-            $_SESSION["userEmail"] = $user[0]["user_email"];
-            $_SESSION["userFN"] = $user[0]["user_fname"];
-            $_SESSION["userLN"] = $user[0]["user_lname"];
+            if(!$m){
+                $_SESSION["userEmail"] = $user[0]["user_email"];
+                $_SESSION["userid"] = $user[0]["user_id"];
+                $_SESSION["userFN"] = $user[0]["user_fname"];
+                $_SESSION["userLN"] = $user[0]["user_lname"];               
+            }
+            else{
+                $_SESSION["adminid"] = $user[0]["user_id"];
+            }
+
             $statement = null;
         }
         else{
             $statement = null;
             session_start();
             $_SESSION["message"] = "Error: Your account hasn't been activated, check your e-mail.";
-            header("location: ../login.php?loginError");
+            header($destination."loginError");
             exit();              
         }
     }

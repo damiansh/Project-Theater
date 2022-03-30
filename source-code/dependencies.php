@@ -1,4 +1,10 @@
-<?php session_start(); ?>
+<?php 
+session_start();
+if(isset($_SESSION["adminid"])){
+    session_unset();
+    session_destroy();
+}
+?>
  <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">

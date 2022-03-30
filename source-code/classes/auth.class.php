@@ -4,7 +4,7 @@ class Auth extends PortalesDB{
 
     //Method that retrieves user info based on email received 
     protected function getUser($email,$code){
-        $query = 'SELECT * FROM users WHERE user_email = ?;';
+        $query = 'SELECT * FROM customers WHERE user_email = ?;';
         $statement = $this->connect()->prepare($query);
         
         //to check if query was sucesfully run
@@ -41,7 +41,7 @@ class Auth extends PortalesDB{
             exit(); 
         }
         elseif($checkCode==true){
-            $query = 'UPDATE users SET active = 1 WHERE user_email = ?;'; //confirming account
+            $query = 'UPDATE customers SET active = 1 WHERE user_email = ?;'; //confirming account
             $statement = $this->connect()->prepare($query);
             
             //to check if query was sucesfully run
