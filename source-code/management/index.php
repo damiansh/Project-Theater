@@ -21,6 +21,7 @@
     </div>
   </div>
   </div>
+  <?php include 'addPlay.php';?>
 
 
 </body>
