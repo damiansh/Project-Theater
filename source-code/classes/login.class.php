@@ -40,6 +40,9 @@ class Login extends PortalesDB{
         }
         elseif($checkPsw==true and $active==1){
             session_start();
+            session_unset();
+            session_destroy();
+            session_start();
             session_regenerate_id(); //to prevent session fixation attacks
             if(!$m){
                 $_SESSION["userEmail"] = $user[0]["user_email"];

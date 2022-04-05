@@ -3,7 +3,7 @@
             <div class="card mb-3 text-white black text-center">
             <div class="row">
                 <div class="thumbnail text-center">
-                    <img class="card-img-top darker" src="images/placeholder.png" alt="Play Name">
+                    <img class="card-img-top darker" src="images/plays/placeholder.png" alt="Play Name">
                     <div class="caption">
                         <h1 class="card-title eTitle">Here the name of the play</h3>
                     </div>
@@ -18,3 +18,5 @@
                 </div>
             </div>
         </div>
+
+

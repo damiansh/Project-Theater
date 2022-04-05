@@ -5,10 +5,7 @@
     <div class="row">
             <?php include 'classes/play-card.php';?>
             <?php include 'classes/play-card.php';?>
-            <?php include 'classes/play-card.php';?>
-            <?php include 'classes/play-card.php';?>
-            <?php include 'classes/play-card.php';?>
-            <?php include 'classes/play-card.php';?>
+          
 
     </div>
 </div>

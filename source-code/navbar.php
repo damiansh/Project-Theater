@@ -1,10 +1,3 @@
-<?php
-if(isset($_SESSION["adminid"])){
-  session_start();
-  session_unset();
-  session_destroy();
-}
-?>
 <!-- Navbar -->
 <div class="container-fluid">
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top black nav-padding">
