@@ -11,7 +11,7 @@ class Play extends PortalesDB{
         //this checks if the query is executed sucesfully 
         if(!$statement->execute(array($playTitle, $shortDesc, $longDesc, $sDate, $eDate))){
             $statement = null;
-            header("location: ../management/index.php?error=errorAddPlay");
+            header("location: ../index.php?error=errorAddPlay");
             exit();
         }
         $statement = null;
@@ -26,7 +26,9 @@ class Play extends PortalesDB{
         //this checks if the query is executed sucesfully 
         if(!$statement->execute(array())){
             $statement = null;
-            header("location: ../management/index.php?error=errorUploadImage");
+            session_start();
+            $_SESSION["message"] = "Error Querying.";
+            header("location: ../index.php?error=errorUploadImage1");
             exit();
         }  
 
@@ -35,8 +37,8 @@ class Play extends PortalesDB{
         if($statement->rowCount()==0){
             $statement = null;
             session_start();
-            $_SESSION["message"] = "Error: The e-mail you’ve entered doesn't exist.";
-            header("location: ../management/index.php?error=errorUploadImage");
+            $_SESSION["message"] = "NULL PLAYS";
+            header("location: ../index.php?error=errorUploadImage2");
             exit();          
         }
 

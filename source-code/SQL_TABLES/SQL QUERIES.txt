@@ -43,4 +43,4 @@ CREATE TABLE seats (
 );
 
 
-CREATE VIEW Latestplay AS SELECT * FROM plays ORDER BY play_id DESC LIMIT 1;
+CREATE VIEW latestplay AS SELECT * FROM plays ORDER BY play_id DESC LIMIT 1;
