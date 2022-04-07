@@ -9,13 +9,14 @@ if(isset($_POST["addP"]))
     $sDate = $_POST['sDate'];
     $eDate = $_POST['eDate'];
     $image = $_POST['image'];
+    $cost = $_POST['cost'];
     $folderPath = '../../images/plays/';
 
     //Instantiate auth classes 
     include "../../classes/db.class.php";
     include "../../classes/play.class.php";
     include "../../classes/play-contr.class.php";
-    $play = new PlayContr($playTitle, $shortDesc, $longDesc, $sDate, $eDate, $image, $folderPath);
+    $play = new PlayContr($playTitle, $shortDesc, $longDesc, $sDate, $eDate, $cost, $image, $folderPath);
 
     //Running upload
     $play->addPlay();

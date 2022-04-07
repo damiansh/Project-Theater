@@ -26,7 +26,7 @@ CREATE TABLE plays
     play_id int(11) auto_increment PRIMARY KEY not null,
     play_title varchar(255) NOT NULL,
     long_desc varchar(1000) NOT NULL,
-    short_desc varchar(50) NOT NULL,
+    short_desc varchar(144) NOT NULL,
     stime datetime NOT NULL,
     etime datetime NOT NULL
 );
@@ -36,11 +36,13 @@ CREATE TABLE seats (
     ticket_id int(11) auto_increment PRIMARY KEY not null, 
     play_id int(11) NOT NULL,
     seat_number tinyint (2) NOT NULL,
-    cost integer(11) NOT NULL,
-    user_id  int(11) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES customers(user_id),
+    cost decimal(19,4) NOT NULL,
+    user_id  int(11) DEFAULT 0 NOT NULL,
     FOREIGN KEY (play_id) REFERENCES plays(play_id)
 );
 
 
 CREATE VIEW latestplay AS SELECT * FROM plays ORDER BY play_id DESC LIMIT 1;
+CREATE VIEW upcoming AS SELECT * FROM `plays` WHERE `stime`>= NOW();
+
+

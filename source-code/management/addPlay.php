@@ -32,7 +32,11 @@
                     <input type="datetime-local"  class="form-control"  name="eDate" id="eDate" >
                     <label for="eDate" class="form-label">End Date: </label>
                 </div></div>  
-                </div>    
+                </div>   
+                <div class="form-floating mb-3">
+                    <input type="number" value="20" placeholder="Default Price for Seats"  step="0.1" class="form-control"  name="cost" id="cost" >
+                    <label for="cost" class="form-label">Default Price:</label>
+                </div> 
                 <div class="mb-3">
                     <input type="file" class="image">
                     <input type="hidden" id="imageData" name="image">
