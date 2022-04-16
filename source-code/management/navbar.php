@@ -17,8 +17,17 @@
         <ul class="navbar-nav ms-auto text-center">
           <!-- Navigation bar content if user is logged -->
           <?php if(isset($_SESSION["adminid"])){ ?>
-            <li><a  id ="index.php" class="nav-link" href="index.php">Play Management</a></li>
-            <li><a  id ="index.php" class="nav-link" href="index.php">Generate Report</a></li>
+            <li class="nav-item dropdown">
+          <a id="play-manager" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Play Manager 
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="index.php">Add Plays</a></li>
+            <li><a class="dropdown-item" href='modify.php'>Modify Plays</a></li>
+            <li><a class="dropdown-item" href='delete.php'>Delete Plays</a></li>
+          </ul>
+        </li>  
+            <li><a  id ="report.php" class="nav-link" href="report.php">Generate Report</a></li>
             <li><a class="nav-link" href='includes/included-logout.php'>Logout</a></li>
    
           <?php 
@@ -43,8 +52,11 @@
   var path = window.location.pathname;
   var page = path.split("/").pop();
   currentPage = document.getElementById(page);
-  if(page ==""){
-    currentPage = document.getElementById("index.php");
+  if(page =="report.php"){
+    currentPage = document.getElementById("report.php");
+  }
+  else{
+    currentPage = document.getElementById("play-manager")
   }
   currentPage.classList.add("active"); //we add the class active  
 </script>

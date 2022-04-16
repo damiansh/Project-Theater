@@ -1,6 +1,5 @@
 
-<div class="container">
-<h1 class="eTitle display-3 text-center my-4">Add Plays</h1>
+<br><div class="container">
 <p>Please fill this form to add a new play to the system.</p>
       <?php
         if(isset($_SESSION["message"])){

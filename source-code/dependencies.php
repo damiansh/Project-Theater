@@ -1,7 +1,7 @@
 <?php session_start();?>
  <!-- CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css?version=<?php echo date("Y-m-d");?>">
 
 <!-- javascript -->
     <script  type="text/javascript" src="js/bootstrap.bundle.min.js"></script>

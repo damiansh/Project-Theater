@@ -57,9 +57,9 @@ class PlayView extends Play{
                 $caption->setAttribute("class","caption");
                 $thumbnail->appendChild($caption); //goes after img inside thumbnail
             
-                //Play Title <h1 class="card-title eTitle">Here the name of the play</h1>
+                //Play Title <h1 class="card-title league">Here the name of the play</h1>
                 $title = $dom->createElement("h1", $play["play_title"]); 
-                $title->setAttribute("class","card-title eTitle");
+                $title->setAttribute("class","card-title league");
                 $caption->appendChild($title); //is inside caption
 
                 //<div class="card-body">

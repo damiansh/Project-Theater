@@ -1,7 +1,14 @@
-<?php session_start();?>
+<?php session_start();
+
+ if (!isset($_SESSION["adminid"])){
+    if(strpos($_SERVER['PHP_SELF'],"login") == false)
+        header("location: login.php");
+     }
+?>
+
  <!-- CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/main.css?version=<?php echo date("Y-m-d");?>">
     <link href="../css/cropper.min.css" rel="stylesheet">
 
 <!-- javascript -->
