@@ -52,11 +52,9 @@
   var path = window.location.pathname;
   var page = path.split("/").pop();
   currentPage = document.getElementById(page);
-  if(page =="report.php"){
-    currentPage = document.getElementById("report.php");
+  if(page !="report.php" && page != "login.php"){
+    currentPage = document.getElementById("play-manager");
   }
-  else{
-    currentPage = document.getElementById("play-manager")
-  }
+ 
   currentPage.classList.add("active"); //we add the class active  
 </script>

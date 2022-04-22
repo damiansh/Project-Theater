@@ -8,7 +8,7 @@
 
  <!-- CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/main.css?version=<?php echo date("Y-m-d");?>">
+    <link rel="stylesheet" href="../css/main.css?version=<?php echo date("Y-m-d H:i:s");?>">
     <link href="../css/cropper.min.css" rel="stylesheet">
 
 <!-- javascript -->

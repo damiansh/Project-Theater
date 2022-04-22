@@ -63,7 +63,7 @@ body {
 
 .topImg {
   background-size: cover;
-  min-height: 50vh;
+  min-height: 40vh;
   position:relative;
   color:white;
   text-shadow: 2px 2px 2px rgba(0,0,0,.2);
@@ -78,6 +78,23 @@ body {
 
 }
 
+.seat{
+  font-size:14px;
+  width:37px;
+  background-color:#212529;
+  color:white;
+  border-color:white;
+}
+
+.seatN{
+  margin-left:-6px;
+}
+
+.stage{
+  width: 550px; 
+}
+
+
 @media (max-width:768px){
   .topImg{
     min-height: 20vh;
@@ -85,4 +102,12 @@ body {
   .eTitle{
     font-size: calc(2.52rem + 3.3vw);
   }
+  .seat{
+    font-size: calc(0.38rem + 0.9vw);
+    max-width:6.77vw;
+  }
+  .selector{
+    font-size: calc(0.25rem + 0.9vw);
+  }
 }
+
