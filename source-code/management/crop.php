@@ -100,6 +100,7 @@
             reader.onloadend = function() {
             var base64data = reader.result;
             document.getElementById("imageData").value =base64data;
+            document.getElementById("deleteButton").classList.remove("d-none");
             bs_modal.modal('hide');
 
       

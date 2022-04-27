@@ -28,7 +28,8 @@ CREATE TABLE plays
     long_desc varchar(1000) NOT NULL,
     short_desc varchar(144) NOT NULL,
     stime datetime NOT NULL,
-    etime datetime NOT NULL
+    etime datetime NOT NULL,
+    published  tinyint(1)  DEFAULT 0 not null
 );
 
 

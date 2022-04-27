@@ -22,7 +22,7 @@ class PlayContr extends Play{
         $this->image_base64 = base64_decode($image_parts[1]);
         $this->folderPath = $folderPath;
     }
-
+    
     public function addPlay(){
         //Error handling for missing input 
         if($this->missingInput()){
@@ -50,6 +50,7 @@ class PlayContr extends Play{
         $this->insertPlay($this->playTitle, $this->shortDesc, $this->longDesc, $this->sDate, $this->eDate);
         $playID = $this->uploadImage($this->folderPath,$this->image_base64);
         $this->addSeats($playID, $this->cost);
+        return $playID; 
     }
 
     //Missing Inputs

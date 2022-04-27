@@ -67,16 +67,16 @@ class Play extends PortalesDB{
     }
 
 
-     //Method that getPlays
-     protected function getPlays(){
+     //Method that Upcoming and Published Plays
+     protected function getUpcomingPlays(){
         date_default_timezone_set('America/Boise'); // change to MOUNTAIN TIME
         $currentDate = date('Y-m-d H:i:s'); //get currentDateTime
-        $query = 'SELECT * FROM plays WHERE stime>=? ORDER BY stime ASC;';
+        $query = 'SELECT * FROM plays WHERE stime>=? AND published = ? ORDER BY stime ASC;';
         $statement = $this->connect()->prepare($query);
         
      
         //this checks if the query is executed sucesfully 
-        if(!$statement->execute(array($currentDate))){
+        if(!$statement->execute(array($currentDate,1))){
             $statement = null;
             header("location: ../index.php?error=loadingPlays");
             exit();
@@ -94,5 +94,48 @@ class Play extends PortalesDB{
         return $plays; //return the plays 
 
     }
+
+
+     //Method that gets an individual play 
+     protected function getPlay($playID){
+        $query = 'SELECT * FROM plays WHERE play_id=?;';
+        $statement = $this->connect()->prepare($query);
+        
+     
+        //this checks if the query is executed sucesfully 
+        if(!$statement->execute(array($playID))){
+            $statement = null;
+            header("location: ../index.php?error=loadingSinglePlay");
+            exit();
+        }  
+
+
+        //If there is not plays that meet the criteria
+        if($statement->rowCount()==0){
+            $statement = null;
+           return null;
+        }
+
+        $play = $statement->fetchAll(PDO::FETCH_ASSOC); //fetch all the play data
+        $statement = null;
+        return $play; //return the plays 
+
+    }
+
+    //Method that publishes the given play 
+    public function publishPlay($playID,$published){
+        $query = 'UPDATE plays SET published = ? WHERE play_id = ?;'; 
+        $statement = $this->connect()->prepare($query);
+
+        //to check if query was sucesfully run
+        if(!$statement->execute(array($published,$playID))){
+            $statement = null;
+            header("location: ../modifySeats.php?error=publishPlay&playID=" . urlencode($seat["play_id"]));
+            exit();
+        }
+        
+        $statement = null;
+
+    }    
 
 }

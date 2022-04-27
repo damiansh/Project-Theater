@@ -36,14 +36,22 @@
                     <input type="number" value="20" placeholder="Default Price for Seats"  step="0.1" class="form-control"  name="cost" id="cost" required>
                     <label for="cost" class="form-label">Default Price:</label>
                 </div> 
-                <div class="mb-3">
-                    <input type="file" class="image form-control" required>
-                    <input type="hidden" id="imageData" name="image" required>
+                <div class="row g-2">
+                    <div class="col-md-10">
+                        <input id="imageFile" type="file" class="image form-control" required>
+                        <input type="hidden" id="imageData" name="image" required>
+                    </div>
+                    <div class="col-md-2">
+                        <button id ="deleteButton" type="button" class="btn btn-danger d-none" onClick="deleteImage()" >X</button>
+                    </div>
+
                 </div>
-                <center>
-                <button type="submit" name ="addP" class="btn btn-secondary btn-lg">Add Play</button>
-                <button type="reset" value="Reset" class="btn btn-secondary btn-lg">Clear</button>
-                </center>
+                <div class="btn-toolbar justify-content-center py-2">
+                    <div class="px-1"><button type="submit" name ="addP" class="btn btn-secondary btn-lg">Add Play</button></div>
+                    <div class="px-1"><button type="reset" value="Reset" class="btn btn-danger btn-lg">Clear</button></div>
+                </div>
+
+               
 
 
             </form>
@@ -55,6 +63,16 @@
 function equalDate(inDate){
     mdfDate = document.getElementById("eDate");
     mdfDate.value = inDate.value;
+}
+
+function deleteImage(){
+    imageFile = document.getElementById("imageFile");
+    imageData = document.getElementById("imageData");
+    deleteButton = document.getElementById("deleteButton");
+
+    imageFile.value = "";
+    imageData.value = "";
+    deleteButton.classList.add("d-none");
 }
 </script>
       
