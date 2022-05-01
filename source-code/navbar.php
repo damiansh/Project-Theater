@@ -55,5 +55,6 @@
   if(page ==""){
     currentPage = document.getElementById("index.php");
   }
-  currentPage.classList.add("active"); //we add the class active  
+  if(page!="selectSeats.php")
+    currentPage.classList.add("active"); //we add the class active  
 </script>

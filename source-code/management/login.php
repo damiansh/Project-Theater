@@ -21,13 +21,6 @@
     <h1 class="league display-3 text-center my-4">Login information:</h1>
 
     <div class="container">
-      <?php
-        if(isset($_SESSION["message"])){
-          echo "<h5 class='nMessage'>{$_SESSION["message"]}</h5>";
-          session_unset();
-          session_destroy();
-        }
-      ?>
       <div class="mb-3">
         <label for="email"><b>Email</b></label>
         <input type="text" placeholder="Enter Email" class="form-control"name="email" required>
@@ -44,6 +37,7 @@
 
   </div>
 
- 
+  <?php include "../notification.php"?>
+
 </body>
 </html>

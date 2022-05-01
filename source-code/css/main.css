@@ -16,7 +16,6 @@ body {
 
 
 
-
 .black{
   background-color: #333;
 }
@@ -38,8 +37,6 @@ body {
   font-family: 'league_gothicregular';
 }
 
-
-
 .thumbnail {
   position: relative;
 }
@@ -51,9 +48,12 @@ body {
   width: 100%;
 }
 
-.darker{
-  filter: brightness(70%);
+
+
+.darker:hover{
+  opacity: 0.9;
 }
+
 
 .nav-padding{
   padding-left:10px;
@@ -79,22 +79,14 @@ body {
 }
 
 .seat{
-  font-size:14px;
-  width:37px;
   background-color:#212529;
   color:white;
   border-color:white;
-}
 
-.seatN{
-  margin-left:-6px;
-}
-
-.stage{
-  width: 550px; 
 }
 
 
+/*md*/ 
 @media (max-width:768px){
   .topImg{
     min-height: 20vh;
@@ -102,12 +94,19 @@ body {
   .eTitle{
     font-size: calc(2.52rem + 3.3vw);
   }
-  .seat{
-    font-size: calc(0.38rem + 0.9vw);
-    max-width:6.77vw;
-  }
+}
+
+
+/*sm*/ 
+@media (max-width:576px){
   .selector{
-    font-size: calc(0.25rem + 0.9vw);
+    display:none;
+  }
+  .seat{
+    font-size:0.66rem;
   }
 }
+
+
+
 

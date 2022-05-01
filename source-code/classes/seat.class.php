@@ -26,7 +26,7 @@ class Seat extends PortalesDB{
         //this checks if the query is executed sucesfully 
         if(!$statement->execute(array($play_id))){
             $statement = null;
-            header("location: ../index.php?error=loadingPlays");
+            header("location: ../index.php?error=loadingSeats");
             exit();
         }  
 

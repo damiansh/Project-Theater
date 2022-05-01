@@ -16,7 +16,7 @@ if(!isset($_GET["playID"])){
 }   
 //Get play data 
 $playID = $_GET["playID"];
-$playCard->getPlayData($playID);
+$playCard->requestPlay($playID);
 $playData = $playCard->getPlayInfo();
 
 //Get the play Seats by its ID 
@@ -33,41 +33,12 @@ $seat = new SeatContr($playID);
     </div>
 </div>
 <div class="container">
-  <?php
-  if(isset($_SESSION["message"])){
-    echo "<p class='nMessage'>{$_SESSION["message"]}</p>";
-    $_SESSION["message"] = "";
-    }
-  ?>
+
   <div class="row">
-    <?php $playCard->printPlays("col-lg-5 col-xl-6 py-1");?>
+    <?php $playCard->printPlays("col-lg-5 col-xl-6 py-1",1);?>
 
     <div class="col-lg-7 col-xl-6 py-1">
-      <div class="btn-toolbar justify-content-center">
-        <button class="btn btn-primary stage" type="button">Stage</button>
-      </div>
-      <?php 
-        $seats = $seat->showSeats();
-        $l = "A";
-        $counter = 1;
-        for ($i = 1; $i <= 8; $i++) {
-          $idArray = array_fill(1,12,0);
-          echo "<div class='btn-toolbar justify-content-center'  role='toolbar'>";
-          for ($j = 1; $j <= 12; $j++) {
-            $cost = number_format($seats[$counter-1]["cost"],2);
-            echo "<input  type='checkbox' class='btn-check' id='{$l}{$j}' autocomplete='off' data-seat='$counter' onchange='seatToggle(this)''>";
-            echo "<label id='{$counter}' class='btn btn-outline-dark seat' for='{$l}{$j}'
-            data-bs-toggle='popover' data-bs-trigger='hover focus' data-bs-placement='top' data-bs-content='\${$cost}'>
-            <span class='seatN'>{$l}{$j}</span></label>";
-            $idArray[$j] = "{$l}{$j}";
-            $counter++;
-          }
-          $idJson = json_encode($idArray);
-          echo "<button type='button' id='{$l}' class='btn btn-secondary btn-sm selector' onclick='selectRow({$idJson})'>Toggle {$l}</button>";
-          $l++;
-          echo "</div>";
-        }
-      ?>
+      <?php $seats = $seat->showSeats(1);?>
         <div class="d-grid py-1">
           <button type="button" onclick="toggleAll(this)" class="btn btn-secondary">Toggle All Seats</button>
         </div>
@@ -77,7 +48,7 @@ $seat = new SeatContr($playID);
                     <input type="number"  placeholder="New price here" step="0.1" class="form-control"  name="cost" id="cost" required>
                     <input type="hidden"  name="seatsJSON" id="seatsJSON" required>
                 </div>
-                <div class="col-6"><button type="submit" onclick="updatePrices()" class="btn btn-secondary">Update Price</button></div>
+                <div class="col-6"><button type="submit" onclick="updatePrices()" class="btn btn-success">Update Price</button></div>
             </div>
 
             <div id="costLabel" class="d-flex flex-wrap" ></div>
@@ -86,44 +57,16 @@ $seat = new SeatContr($playID);
         <div class="d-grid py-3">
           
         <form action="includes/included-play.php"  method="post">
-          <div class="row">
-          <div class="col-6">
+          
             <div class="d-grid gap-2" >
-              <?php
-                $p = 1;
-                $pClass = "btn btn-success";
-                $pText = "Publish Play";
-
-                if($playData[0]["published"] == 1){
-                  $p = 0;
-                  $pClass = "btn btn-warning";
-                  $pText = "Unpublish Play";
-                }
-               
-              ?>
-              <input type="hidden"  name="playID" id="playID" required>
-              <input type="hidden"  name="published" id="published" required>
-              <button type="submit" name="publish"  class="<?php echo $pClass;?>" onclick="publishPlay(<?php echo $p;?>)"><?php echo $pText;?></button>
-
-            </div>
-          </div> 
-          <div class="col-6">
-            <div class="d-grid gap-2" >
-              <a href="modify.php"  role="button" class="btn btn-danger" >Cancel</a>
+              <a href="index.php?playID=<?php echo "{$playID}#play{$playID}";?>"   role="button" class="btn btn-primary" >Go back</a>
             </div> 
-          </div> 
-          </div>
         </form>          
-
-
-  </div>
       </div>
-
-
+    </div>
   </div>
- 
 </div>
-
+<?php include "../notification.php"?>
 </body>
 
 </html>

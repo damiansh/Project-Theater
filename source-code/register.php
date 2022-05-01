@@ -27,14 +27,6 @@
         <form action="includes/included-register.php" method="post">
             <h1 class="league display-3 text-center my-4">Registration Form:</h1>
               <h5>Please fill in this form to create an account.</h3>
-
-              <?php
-                if(isset($_SESSION["message"])){
-                  echo "<h5 class='nMessage'>{$_SESSION["message"]}</h5>";
-                  session_unset();
-                  session_destroy();
-                }
-              ?>
               <hr>
           <div class="mb-3">
             <label for="email" class="form-label">Email address:</label>
@@ -74,5 +66,7 @@
 
   </div>
 <br>
+<?php include "notification.php"?>
+
 </body>
 </html>

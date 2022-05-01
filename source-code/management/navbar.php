@@ -22,9 +22,8 @@
             Play Manager 
           </a>
           <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="index.php">Add Plays</a></li>
-            <li><a class="dropdown-item" href='modify.php'>Modify Plays</a></li>
-            <li><a class="dropdown-item" href='delete.php'>Delete Plays</a></li>
+            <li><a class="dropdown-item" href="addPlay.php">Add Plays</a></li>
+            <li><a class="dropdown-item" href='index.php'>Modify Plays</a></li>
           </ul>
         </li>  
             <li><a  id ="report.php" class="nav-link" href="report.php">Generate Report</a></li>

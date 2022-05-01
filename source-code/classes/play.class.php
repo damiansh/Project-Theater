@@ -11,12 +11,12 @@ class Play extends PortalesDB{
         //this checks if the query is executed sucesfully 
         if(!$statement->execute(array($playTitle, $longDesc, $shortDesc, $sDate, $eDate))){
             $statement = null;
-            header("location: ../index.php?error=errorAddPlay");
+            header("location: ../addPlay.php?error=errorAddPlay");
             exit();
         }
         $statement = null;
     }
-    //Method that adds new seats per play
+    //Method that adds new seats per play 
     protected function addSeats($playID, $defaultCost){
         $query = 'INSERT INTO seats (play_id, seat_number, cost) VALUES (?,?,?);';
         $statement = $this->connect()->prepare($query);
@@ -24,26 +24,63 @@ class Play extends PortalesDB{
             //this checks if the query is executed sucesfully 
             if(!$statement->execute(array($playID, $i, $defaultCost))){
                 $statement = null;
-                header("location: ../index.php?error=errorAddSeat");
+                header("location: ../addPlay.php?error=errorAddSeat");
                 exit();
             }
         }
         $statement = null;
     }
 
+    //Method that updates Plays 
+    protected function updatePlay($playID, $playTitle, $shortDesc, $longDesc, $sDate, $eDate){
+        $query = 'UPDATE plays SET play_title=?, long_desc=?, short_desc=?, stime=?, etime=? WHERE play_id = ?;';
+        $statement = $this->connect()->prepare($query);
+        $uniqueURL = "{$playID}.png?" . uniqid();
+        //this checks if the query is executed sucesfully 
+        if(!$statement->execute(array($playTitle, $longDesc, $shortDesc, $sDate, $eDate,$playID))){
+            $statement = null;
+            session_start();
+            $_SESSION["message"] = "ERROR UPDATING PLAY #{$playID}.";
+            header("location: ../index.php?error=updatePlay&playID=" . urlencode($playID));
+            exit();
+        }
+        $statement = null;
+    }    
+    
 
-    //Method that uploads the image
-    protected function uploadImage($path,$base64){
+
+    //Method that uploads the image and add URL to play
+    protected function uploadImage($path,$base64,$playID,$page){
+        $query = 'UPDATE plays SET pURL = ? WHERE play_id = ?;';
+        $statement = $this->connect()->prepare($query);
+        $uniqueURL = "{$playID}.png?" . uniqid();
+
+        //this checks if the query is executed sucesfully 
+        if(!$statement->execute(array($uniqueURL,$playID))){
+            $statement = null;
+            header("location: ../{$page}.php?error=errorAddImgURL");
+            exit();
+        }
+        $imageName = $playID;
+        $file = $path . $imageName . '.png';
+        file_put_contents($file, "$base64");
+        $statement = null;
+        return $imageName; //return play ID 
+
+    }
+
+    //Method that gets latest play id
+    protected function getPlayID(){
         $query = 'SELECT * FROM latestplay;';
         $statement = $this->connect()->prepare($query);
         
-     
+        
         //this checks if the query is executed sucesfully 
         if(!$statement->execute(array())){
             $statement = null;
             session_start();
             $_SESSION["message"] = "Error Querying.";
-            header("location: ../index.php?error=errorUploadImage1");
+            header("location: ../index.php?error=errorgetPlay");
             exit();
         }  
 
@@ -53,21 +90,19 @@ class Play extends PortalesDB{
             $statement = null;
             session_start();
             $_SESSION["message"] = "NULL PLAYS";
-            header("location: ../index.php?error=errorUploadImage2");
+            header("location: ../index.php?error=NullPlays");
             exit();          
         }
 
         $play = $statement->fetchAll(PDO::FETCH_ASSOC); //fetch all the play data
-        $imageName = $play[0]["play_id"];
-        $file = $path . $imageName . '.png';
-        file_put_contents($file, "$base64");
+        $playID = $play[0]["play_id"];
         $statement = null;
-        return $imageName; //return play ID 
+        return $playID; //return play ID 
 
     }
+    
 
-
-     //Method that Upcoming and Published Plays
+     //Method that gets Upcoming and Published Plays
      protected function getUpcomingPlays(){
         date_default_timezone_set('America/Boise'); // change to MOUNTAIN TIME
         $currentDate = date('Y-m-d H:i:s'); //get currentDateTime
@@ -79,6 +114,32 @@ class Play extends PortalesDB{
         if(!$statement->execute(array($currentDate,1))){
             $statement = null;
             header("location: ../index.php?error=loadingPlays");
+            exit();
+        }  
+
+
+        //If there is not plays that meet the criteria
+        if($statement->rowCount()==0){
+            $statement = null;
+           return null;
+        }
+
+        $plays = $statement->fetchAll(PDO::FETCH_ASSOC); //fetch all the play data
+        $statement = null;
+        return $plays; //return the plays 
+
+    }
+
+     //Method that gets ALL PLAYS
+     protected function getAllPlays(){
+        $query = 'SELECT * FROM plays ORDER BY stime DESC;';
+        $statement = $this->connect()->prepare($query);
+
+     
+        //this checks if the query is executed sucesfully 
+        if(!$statement->execute(array())){
+            $statement = null;
+            header("location: ../index.php?error=loadingAllPlays");
             exit();
         }  
 
@@ -130,12 +191,33 @@ class Play extends PortalesDB{
         //to check if query was sucesfully run
         if(!$statement->execute(array($published,$playID))){
             $statement = null;
-            header("location: ../modifySeats.php?error=publishPlay&playID=" . urlencode($seat["play_id"]));
+            session_start();
+            $_SESSION["message"] = "ERROR PUBLISHING PLAY.";
+            header("location: ../index.php?error=publishPlay&playID=" . urlencode($playID));
             exit();
         }
         
         $statement = null;
 
-    }    
+    }  
+
+     //Method that publishes the given play 
+     public function deletePlay($playID){
+        //Seats contain foreign key for play, thus they must be deleted first
+        $query = 'DELETE FROM seats WHERE play_id = ?; DELETE FROM plays WHERE play_id = ?;'; 
+        $statement = $this->connect()->prepare($query);
+
+        //to check if query was sucesfully run
+        if(!$statement->execute(array($playID,$playID))){
+            $statement = null;
+            session_start();
+            $_SESSION["message"] = "ERROR DELETING PLAY #{$playID}.";
+            header("location: ../index.php?error=deletePlay&playID=" . urlencode($playID));
+            exit();
+        }
+        
+        $statement = null;
+
+    }       
 
 }

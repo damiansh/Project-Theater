@@ -29,6 +29,8 @@ CREATE TABLE plays
     short_desc varchar(144) NOT NULL,
     stime datetime NOT NULL,
     etime datetime NOT NULL,
+    pURL varchar(255) NOT NULL,
+    accessed  datetime,
     published  tinyint(1)  DEFAULT 0 not null
 );
 
@@ -39,6 +41,7 @@ CREATE TABLE seats (
     seat_number tinyint (2) NOT NULL,
     cost decimal(19,4) NOT NULL,
     user_id  int(11) DEFAULT 0 NOT NULL,
+    reserved datetime,
     FOREIGN KEY (play_id) REFERENCES plays(play_id)
 );
 

@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onCLick="deleteImage()">Cancel</button>
                         <button type="button" class="btn btn-primary" id="crop">Crop</button>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
             reader.onloadend = function() {
             var base64data = reader.result;
             document.getElementById("imageData").value =base64data;
-            document.getElementById("deleteButton").classList.remove("d-none");
+            document.getElementById("cardPlayImage").src = base64data;
             bs_modal.modal('hide');
 
       

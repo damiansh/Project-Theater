@@ -4,27 +4,38 @@ class PlayView extends Play{
     private $plays;
 
     //Get Upcoming and Published Plays
-    public function getAllPlays(){
+    public function requestPublished(){
         $this->plays = $this->getUpcomingPlays(); 
     }
     
+    
+    //Get ALL plays in the system 
+    public function requestAllPlays(){
+        $this->plays = $this->getAllPlays(); 
+    }
+    
     //gets a specific play by ID
-    public function getPlayData($playID){
+    public function requestPlay($playID){
         $this->plays = $this->getPlay($playID); 
     }
 
-    public function printPlays($column){
+
+    public function printPlays($column,$modal){
+        //modal=0 homepage, modal=1, graphicSeatPlan, modal=2, modify play
         $plays = $this->plays;
+        $desc = "short_desc";
+        if($modal==1) $desc = "long_desc";
         if($plays==null){
             echo "There is not upcoming plays at this moment.";
         }
         else{
             //Loop through all the upcoming plays 
             foreach ($plays as $play){
-                echo $this->playCard($play["play_id"],$play["play_title"],$play["short_desc"],$play["stime"],$play["etime"],$column)->saveXML();
+                echo $this->playCard($play["play_id"],$play["play_title"],$play[$desc],$play["stime"],$play["etime"],$play["published"],$play["pURL"],$column,$modal)->saveXML();
+
             }
-            //print plays
-           // echo $dom;
+            echo "<script>playCard()</script>";
+            // echo $dom;
         }
     }
 
@@ -34,7 +45,7 @@ class PlayView extends Play{
 
     }
 
-    public function playCard($playID, $playTitle, $shortDesc,$sTimeR, $eTimeR, $column){
+   public function playCard($playID, $playTitle, $desc,$sTimeR, $eTimeR, $published, $pURL, $column, $modal){
         //Creaste DOM ELEMENT
         $dom = new DOMDocument('1.0', 'utf-8');
         //Set Date and Time  Format
@@ -43,13 +54,27 @@ class PlayView extends Play{
         $eTime = date('h:i a',strtotime($eTimeR));
 
         //image url 
-        $hostname = getenv('HTTP_HOST');
-        $link ="http://{$hostname}/images/plays/";
-        $link ="http://{$hostname}/losportales/images/plays/"; //comment this when testing live
+        $uri = $_SERVER['REQUEST_URI'];
+        $link ="images/plays/";
+        $find = strpos($uri,"management");
+        //if executing in management, change path
+        if($find){
+            $link ="../images/plays/";
+        }
+        //check if file exists, if not, use placeholder image
+        $exists = file_exists($link . $playID . ".png");
+        if(!$exists){
+            $link = $link . "placeholder.png";
+        }
+        else{
+            $link = $link . $pURL;
+        }
 
-        //<div class="col-md-6 col-lg-4">
+
+        //<div class="">
         $colmd = $dom->createElement('div', ''); 
         $colmd->setAttribute("class",$column);
+        $colmd->setAttribute("id","play{$playID}");
         $dom->appendChild($colmd);
 
         //<div class="card mb-3 text-white black text-center">
@@ -70,58 +95,116 @@ class PlayView extends Play{
         // <img class="card-img-top darker" src="images/plays/placeholder.png" alt="Play Name">
         $img = $dom->createElement('img', ''); 
         $img->setAttribute("class","card-img-top darker");
-        $img->setAttribute("src",$link . $playID . ".png");
-        $img->setAttribute("alt","PlayName");
+        $img->setAttribute("id","cardPlayImage");
+        $img->setAttribute("src",$link);
+        $img->setAttribute("alt",$playTitle);
         $thumbnail->appendChild($img); //is inside thumbnail
 
-        //<div class="caption">
-        $caption = $dom->createElement('div', ''); 
-        $caption->setAttribute("class","caption");
-        $thumbnail->appendChild($caption); //goes after img inside thumbnail
-    
-        //Play Title <h1 class="card-title league">Here the name of the play</h1>
-        $title = $dom->createElement("h1", $playTitle); 
-        $title->setAttribute("class","card-title league");
-        $caption->appendChild($title); //is inside caption
+
 
         //<div class="card-body">
         $cardBody = $dom->createElement('div', ''); 
         $cardBody->setAttribute("class","card-body");
         $cardmb3->appendChild($cardBody); // is inside cardmb3
 
+    
+        //Play Title <h1 class="card-title league">Here the name of the play</h1> playTitle
+        $title = $dom->createElement("h1", $playTitle); 
+        $title->setAttribute("class","card-title league text-nowrap");
+        $title->setAttribute("id","CardplayTitle");
+        $cardBody->appendChild($title); //is inside caption        
+
         //<div class="btn-group" role="group">
         $btnGroup = $dom->createElement('div', ''); 
-        $btnGroup->setAttribute("class","btn-group");
+        $btnGroup->setAttribute("class","btn-group py-1");
         $btnGroup->setAttribute("role","group");
         $cardBody->appendChild($btnGroup); // is inside card body
 
-        //DATE OF THE PLAY <button type="button" class="btn btn-dark fw-bold">Start Date</button>
+        //DATE OF THE PLAY <button type="button" class="btn btn-dark fw-bold">Start Date</button> sDate
         $date = $dom->createElement('button', $date); 
         $date->setAttribute("type","button");
         $date->setAttribute("class","btn btn-dark fw-bold");
+        $date->setAttribute("id","CardsDate");
         $btnGroup->appendChild($date); // is inside button group
 
         //Start and End Time <button type="button" class="btn btn-dark fw-bold">8:00 P.M. - 10:00 P.M.</button>
-        $time = $dom->createElement("button", "{$sTime} - {$eTime}"); 
+        $time = $dom->createElement("button", ""); 
         $time->setAttribute("type","button");
         $time->setAttribute("class","btn btn-dark fw-bold");
-        $btnGroup->appendChild($time); // is inside button group      
+        $btnGroup->appendChild($time); // is inside button group 
         
-        //Short Description <p class="card-text">Short just this line so it doesn't deform the element</p>
-        $shortDesc = $dom->createElement("p", $shortDesc); 
-        $shortDesc->setAttribute("class","card-text");
-        $cardBody->appendChild($shortDesc); // is inside cardbody
+        //Stime
+        $timeStart = $dom->createElement("span", "{$sTime} - "); 
+        $timeStart->setAttribute("id","startingTime");
+        $time->appendChild($timeStart); // is inside button group 
+        //eTime
+        $timeEnd = $dom->createElement("span", "{$eTime}"); 
+        $timeEnd->setAttribute("id","endingTime");
+        $time->appendChild($timeEnd); // is inside button group 
+        
+        //Description <p class="card-text">Desc</p> shortDesc
+        $desc = $dom->createElement("p", $desc); 
+        $desc->setAttribute("class","card-text");
+        $desc->setAttribute("id","CardshortDesc");
+        $cardBody->appendChild($desc); // is inside cardbody
 
         //Purchase <button type="button" class="btn btn-secondary">Purchase or Log In </button> 
-        if(strcmp($column,"col-md-6 col-lg-6 col-xl-4 py-1") ==0){ //only purchase if in homepage
-            $purchase = $dom->createElement('button', 'Purchase'); 
-            $purchase->setAttribute("type","button");
+        if($modal==0){ //only purchase if in homepage
+            $purchase = $dom->createElement('a', 'Purchase'); 
+            $purchase->setAttribute("href","selectSeats.php?playID=" . urlencode($playID));
+            if(!isset($_SESSION["userid"])){
+                $purchase = $dom->createElement('a', 'Login'); 
+                $purchase->setAttribute("href","login.php");
+            }
             $purchase->setAttribute("class","btn btn-secondary");
-            $cardBody->appendChild($purchase); // after shortDesc in cardBody  
+            $cardBody->appendChild($purchase); // after desc in cardBody  
+        }
+        else if($modal==2){ //modify Play modal 
+            //<form action="includes/included-play.php"  method="post">
+            $form = $dom->createElement('form', ''); 
+            $form->setAttribute("action","includes/included-play.php");
+            $form->setAttribute("method","POST");
+            $cardBody->appendChild($form); 
+            // <input type="hidden"  name="playID" id="playID" required>
+            $hiddenID = $dom->createElement('input', ''); 
+            $hiddenID->setAttribute("type","hidden");
+            $hiddenID->setAttribute("name","playID");
+            $hiddenID->setAttribute("value","{$playID}");
+            $form->appendChild($hiddenID);
+            //<input type="hidden"  name="published" id="published" required>
+            $hiddenP = $dom->createElement('input', ''); 
+            $hiddenP->setAttribute("type","hidden");
+            $hiddenP->setAttribute("name","published");
+            if($published==0) $flip = 1; 
+            if($published==1) $flip = 0; 
+            $hiddenP->setAttribute("value","{$flip}");
+            $form->appendChild($hiddenP); 
+            //Modify Button
+            $modify = $dom->createElement('a', 'Modify Seats'); 
+            $modify->setAttribute("href","modifySeats.php?playID=" . urlencode($playID));
+            $modify->setAttribute("class","btn btn-primary");
+            $form->appendChild($modify); 
+            //Delete Button
+            $bText = "Publish";
+            $bClass = "btn btn-success";
+            if($published==1){
+                $bText = "Unpublish";
+                $bClass = "btn btn-warning";
+            }
+            $publish = $dom->createElement("button", $bText); 
+            $publish->setAttribute("type","submit");
+            $publish->setAttribute("name","publish");
+            $publish->setAttribute("class",$bClass);
+            $form->appendChild($publish); 
+            //Delete Button
+            $delete = $dom->createElement("button", "Delete Play"); 
+            $delete->setAttribute("type","submit");
+            $delete->setAttribute("name","delete");
+            $delete->setAttribute("class","btn btn-danger");
+            $form->appendChild($delete); 
         }
 
         return $dom;
     }
-
 
 }
