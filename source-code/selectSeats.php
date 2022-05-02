@@ -26,7 +26,7 @@
     $playData = $playCard->getPlayInfo();
 
     //Get the play Seats by its ID 
-    $seat = new SeatContr($playID);
+    $seat = new SeatView($playID);
 ?>  
 </head>
 
@@ -140,7 +140,7 @@
 
         //add selected seats to the selected list
         seatsSelected.push(seats[seatNumber-1]); 
-        //console.log(seatsSelected); for debugging purposes
+       // console.log(seatsSelected); 
 
       }
       else{
@@ -153,7 +153,7 @@
         //remove from the list the seat unchecked 
         removee = seatsSelected.indexOf(seats[seatNumber-1]);
         seatsSelected.splice(removee,1);
-        //console.log(seatsSelected); for debugging purposes 
+        //console.log(seatsSelected); 
       } 
     }
 

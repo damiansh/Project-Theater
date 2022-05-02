@@ -1,6 +1,6 @@
 <?php 
 
-class SeatContr extends Seat{
+class SeatView extends Seat{
     private $seats; // seats associative array 
  
     public function __construct($play_id){

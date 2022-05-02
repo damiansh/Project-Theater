@@ -20,7 +20,7 @@ $playCard->requestPlay($playID);
 $playData = $playCard->getPlayInfo();
 
 //Get the play Seats by its ID 
-$seat = new SeatContr($playID);
+$seat = new SeatView($playID);
 
 ?>
 

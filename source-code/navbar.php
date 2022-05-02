@@ -24,7 +24,7 @@
             <?php  echo "{$_SESSION['userFN']} {$_SESSION['userLN']}"; ?>
           </a>
           <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#payment">Payment Method</a></li>
+            <li><a class="dropdown-item" href="payment.php">Payment Method</a></li>
             <li><a class="dropdown-item" href='#orders'>Orders</a></li>
             <li><a class="dropdown-item" href='includes/included-logout.php'>Logout</a></li>
           </ul>
