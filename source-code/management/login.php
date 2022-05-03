@@ -29,7 +29,7 @@
         <label for="psw"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" class="form-control" name="psw" required>
       </div>
-      <button type="submit" name="loginM" class="btn btn-secondary">Login</button>
+      <div class="d-grid"><button type="submit" name="loginM" class="btn btn-secondary btn-lg">Login</button></div>
 
     </div>
 

@@ -3,14 +3,15 @@
 class Payment extends PortalesDB{
 
     //Method that retrieves user info based on email entered
-    protected function requestPaymentInfo($userID){
+    protected function requestPaymentInfo(){
+        $userID = $_SESSION["userid"];
         $query = 'SELECT * FROM payment WHERE user_id = ?;';
         $statement = $this->connect()->prepare($query);
         
         //to check if query was sucesfully run
         if(!$statement->execute(array($userID))){
             $statement = null;
-            header("location: payment.php?error=paymentInfoError");
+            header("location: index.php?error=paymentInfoError");
             exit();
         }
         
@@ -34,26 +35,29 @@ class Payment extends PortalesDB{
         //to check if query was sucesfully run
         if(!$statement->execute(array($userID,$cnumber, $ctitular, $cmonth, $cyear, $ccvc))){
             $statement = null;
-            header("location: addPayment.php?error=AddingPayment");
+            header("location: ../addPayment.php?error=AddingPayment");
             exit();
         }
    
         $statement = null;
     } 
 
-    //Update payment information 
-    protected function updatePaymentInfo($cnumber, $ctitular, $cmonth, $cyear, $ccvc){
-        $userID = $_SESSION["userid"]; 
-        $query = 'UPDATE plays SET cnumber=?, ctitular=?, cmonth=?, cyear=?, ccvc=? WHERE user_id = ?;';
-        $statement = $this->connect()->prepare($query);
-        
-        //to check if query was sucesfully run
-        if(!$statement->execute(array($cnumber, $ctitular, $cmonth, $cyear, $ccvc,$userID))){
-            $statement = null;
-            header("location: addPayment.php?error=AddingPayment");
-            exit();
-        }
-   
+
+    //Method that deletes the payment method of the logged user 
+    public function deletePayment(){
+    $userID = $_SESSION["userid"];
+    $query = 'DELETE FROM payment WHERE user_id = ?;'; 
+    $statement = $this->connect()->prepare($query);
+
+    //to check if query was sucesfully run
+    if(!$statement->execute(array($userID))){
         $statement = null;
-    }      
+        $_SESSION["message"] = "ERROR DELETING PAYMENT Method.";
+        header("location: ../payment.php?error=deletePayment");
+        exit();
+    }
+    
+    $statement = null;
+
+}        
 }

@@ -2,7 +2,19 @@
 <html>
 <head>
   <title>Add Payment Information</title>
-  <?php include 'dependencies.php';?>
+  <?php include 'dependencies.php';
+          include 'classes/db.class.php';
+          include 'classes/payment.class.php';
+          include 'classes/payment-view.class.php';
+    if(!isset($_SESSION["userid"])){
+      header("location: index.php");
+    }
+    $paymentInfo = new PaymentView();
+    $paymentInfo = $paymentInfo->getPayInfo();
+    if($paymentInfo!=null){
+      header("location: payment.php");
+    }
+  ?>
   <link href="css/card-js.min.css" rel="stylesheet" type="text/css" />
   <script src="js/card-js.min.js"></script>
   <style type="text/css">

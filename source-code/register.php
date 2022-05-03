@@ -59,7 +59,7 @@
             <input type="tel" placeholder="Enter your phone number"  class="form-control"  name="phone" id="phone" >
           </div>
           <div class="d-grid gap-2">
-              <button type="submit" name="register"  class="btn btn-secondary">Join</button>
+              <button type="submit" name="register"  class="btn btn-secondary btn-lg">Join</button>
             </div>
       
         </form>

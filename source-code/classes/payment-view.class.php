@@ -3,8 +3,8 @@
 class PaymentView extends Payment{
     private $paymentInfo; // seats associative array 
  
-    public function __construct($userID){
-       $this->paymentInfo = $this->requestPaymentInfo($userID);
+    public function __construct(){
+       $this->paymentInfo = $this->requestPaymentInfo();
     }
 
     //Method to generate Graphic Seat Plan 

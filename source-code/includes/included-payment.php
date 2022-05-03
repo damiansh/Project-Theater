@@ -26,6 +26,23 @@ if(isset($_POST["addPayment"]))
     header("location: ../payment.php?success");
 
 }
+elseif(isset($_POST["deletePayment"])){
+    session_start();
+
+    //Instantiate auth classes 
+    include "../classes/db.class.php";
+    include "../classes/payment.class.php";
+
+    $payment = new Payment();
+
+    //Running upload
+    $payment->deletePayment();
+
+    //Going to back 
+    $_SESSION["message"] = "Your payment method has been removed.";
+    header("location: ../addPayment.php");    
+
+}
 else{
     header("location: ../index.php?error");
 }

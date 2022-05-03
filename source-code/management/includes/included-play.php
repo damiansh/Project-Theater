@@ -1,5 +1,9 @@
 <?php
-if(isset($_POST["addP"]))
+session_start();
+if(!isset($_SESSION["adminid"])){
+    header("location: ../login.php?NotLogged");
+}
+elseif(isset($_POST["addP"]))
 {
 
     //Grabbing the post data
@@ -28,12 +32,11 @@ if(isset($_POST["addP"]))
   
 
     //Going to back 
-    session_start();
     $_SESSION["message"] = "The play has been added sucessfully.";
     header("location: ../index.php?playID=" . urlencode($playID));
 
 }
-if(isset($_POST["publish"]))
+elseif(isset($_POST["publish"]))
 {
     //grabbing post data
     $playID = $_POST["playID"];
@@ -48,7 +51,6 @@ if(isset($_POST["publish"]))
     $play->publishPlay($playID,$published);
 
     //Going to back 
-    session_start();
     $_SESSION["message"] = "The play has been published.";
     if($published == 0){
         $_SESSION["message"] = "The play has been unpublished and is not longer visible.";
@@ -57,7 +59,7 @@ if(isset($_POST["publish"]))
     header("location: ../index.php?playID={$urlPart}");
 }
 
-if(isset($_POST["delete"]))
+elseif(isset($_POST["delete"]))
 {
     //grabbing post data
     $playID = $_POST["playID"];
@@ -71,12 +73,11 @@ if(isset($_POST["delete"]))
     $play->deletePlay($playID,$published);
 
     //Going to back 
-    session_start();
     $_SESSION["message"] = "The play has been deleted from the system.";
     header("location: ../index.php");
 }
 
-if(isset($_POST["update"]))
+elseif(isset($_POST["update"]))
 {
     //Grabbing the post data
     $playID = $_POST['playIDinput'];
@@ -105,8 +106,10 @@ if(isset($_POST["update"]))
   
 
     //Going to back 
-    session_start();
     $_SESSION["message"] = "The play information has been updated.";
     header("location: ../index.php?playID=" . urlencode($playID));
 
+}
+else{
+    header("location: ../index.php?error");
 }

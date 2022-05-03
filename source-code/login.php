@@ -31,7 +31,7 @@
               <input type="password" placeholder="Enter Password" class="form-control" name="psw" required>
             </div>
             <div class="d-grid gap-2">
-              <button type="submit" name="login"  class="btn btn-secondary">Login</button>
+              <button type="submit" name="login"  class="btn btn-secondary btn-lg">Login</button>
             </div>
         </form>
       </div>

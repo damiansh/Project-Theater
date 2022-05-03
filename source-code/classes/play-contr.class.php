@@ -102,21 +102,18 @@ class PlayContr extends Play{
         }
         //Error handling for missing input 
         if($this->missingInput()){
-            session_start();
             $_SESSION["message"] = "Error: Fill in all the Play Information."; 
             header("location: ../{$page}.php?{$playID}MissingPlayInfo");
             exit();
         }
         //Error handling for End Date cannot be less than Start Date
         if($this->isEndDateLess()){
-            session_start();
             $_SESSION["message"] = "Error: End Date and Time cannot be equal or less than Start Date."; 
             header("location: ../{$page}.php?{$playID}DateError");
             exit();
         }
         //Error handling for Different Dates
         if($this->areDatesDifferent()){
-            session_start();
             $_SESSION["message"] = "Error: Start Date and End Date must be in the same day"; 
             header("location: ../{$page}.php?{$playID}DateError");
             exit();
@@ -124,7 +121,6 @@ class PlayContr extends Play{
         
         //Error handling short description higher than expected
         if($this->isShortLonger()){
-            session_start();
             $sl = strlen($this->shortDesc); 
             $_SESSION["message"] = "Error: Your short description cannot be more than 144 characters. {$sl}"; 
             header("location: ../{$page}.php?{$playID}DateError");

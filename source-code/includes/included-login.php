@@ -28,3 +28,6 @@ if(isset($_POST["login"]) || isset($_POST["loginM"]))
     }
 
 }
+else{
+    header("location: ../index.php?error");
+}

@@ -1,6 +1,9 @@
 <?php
-
-if(isset($_POST["register"]))
+session_start();
+if(isset($_SESSION["userid"])){
+    header("location: ../index.php?AlreadyRegistered");
+}
+elseif(isset($_POST["register"]))
 {
     //Grabbing the data from the registration form
     $email = $_POST["email"];
@@ -25,4 +28,7 @@ if(isset($_POST["register"]))
     $_SESSION["message"] = "A confirmation e-mail has been sent to your account.<br>Check your spam folder if you don't see the e-mail.";
     header("location: ../register.php?confirmedEmail");
 
+}
+else{
+    header("location: ../index.php?error");
 }

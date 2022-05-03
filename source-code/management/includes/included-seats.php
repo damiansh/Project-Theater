@@ -1,5 +1,9 @@
 <?php
-if(isset($_POST["seatsJSON"]))
+session_start();
+if(!isset($_SESSION["adminid"])){
+    header("location: ../login.php?NotLogged");
+}
+elseif(isset($_POST["seatsJSON"]))
 {
 
 
@@ -16,8 +20,10 @@ if(isset($_POST["seatsJSON"]))
     $seatPlan->setPrice();
 
     //Going to back 
-    session_start();
     $_SESSION["message"] = "The prices have been updated.";
     header("location: ../modifySeats.php?playID=" . urlencode($seats[0]["play_id"]));
 
+}
+else{
+    header("location: ../index.php?error");
 }

@@ -39,7 +39,6 @@ class Play extends PortalesDB{
         //this checks if the query is executed sucesfully 
         if(!$statement->execute(array($playTitle, $longDesc, $shortDesc, $sDate, $eDate,$playID))){
             $statement = null;
-            session_start();
             $_SESSION["message"] = "ERROR UPDATING PLAY #{$playID}.";
             header("location: ../index.php?error=updatePlay&playID=" . urlencode($playID));
             exit();
@@ -78,7 +77,6 @@ class Play extends PortalesDB{
         //this checks if the query is executed sucesfully 
         if(!$statement->execute(array())){
             $statement = null;
-            session_start();
             $_SESSION["message"] = "Error Querying.";
             header("location: ../index.php?error=errorgetPlay");
             exit();
@@ -88,7 +86,6 @@ class Play extends PortalesDB{
         //Check if rows
         if($statement->rowCount()==0){
             $statement = null;
-            session_start();
             $_SESSION["message"] = "NULL PLAYS";
             header("location: ../index.php?error=NullPlays");
             exit();          
@@ -113,7 +110,7 @@ class Play extends PortalesDB{
         //this checks if the query is executed sucesfully 
         if(!$statement->execute(array($currentDate,1))){
             $statement = null;
-            header("location: ../index.php?error=loadingPlays");
+            header("location: ../error=loadingPlays");
             exit();
         }  
 
@@ -191,7 +188,6 @@ class Play extends PortalesDB{
         //to check if query was sucesfully run
         if(!$statement->execute(array($published,$playID))){
             $statement = null;
-            session_start();
             $_SESSION["message"] = "ERROR PUBLISHING PLAY.";
             header("location: ../index.php?error=publishPlay&playID=" . urlencode($playID));
             exit();
@@ -210,7 +206,6 @@ class Play extends PortalesDB{
         //to check if query was sucesfully run
         if(!$statement->execute(array($playID,$playID))){
             $statement = null;
-            session_start();
             $_SESSION["message"] = "ERROR DELETING PLAY #{$playID}.";
             header("location: ../index.php?error=deletePlay&playID=" . urlencode($playID));
             exit();

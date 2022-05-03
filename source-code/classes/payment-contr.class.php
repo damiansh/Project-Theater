@@ -25,25 +25,21 @@ class PaymentContr extends Payment{
     private function errorHandlers($page){
         //Error handling for missing input 
         if($this->missingInput()){
-            session_start();
             $_SESSION["message"] = "Error: Fill in all the Payment Information."; 
             header("location: ../{$page}.php?MissingPaymentInfo");
             exit();
         }
         if($this->checkMonth()){
-            session_start();
             $_SESSION["message"] = "Error: Invalid month"; 
             header("location: ../{$page}.php?MissingPaymentInfo");
             exit();
         }
         if($this->isExpired()){
-            session_start();
             $_SESSION["message"] = "Error: Your card is expired."; 
             header("location: ../{$page}.php?ExpiredCard");
             exit();
         }
         if($this->isValid()){
-            session_start();
             $_SESSION["message"] = "Error: Your card information is invalid."; 
             header("location: ../{$page}.php?invalidCard");
             exit();

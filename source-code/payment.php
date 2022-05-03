@@ -17,9 +17,13 @@
 </div>
 <div class="container">
  <?php
-  $paymentInfo = new PaymentView($_SESSION["userid"]);
+  
+  $paymentInfo = new PaymentView();
   $paymentInfo = $paymentInfo->getPayInfo();
-  if($paymentInfo==null){
+  if(!isset($_SESSION["userid"])){
+    header("location: index.php");
+  }
+  elseif($paymentInfo==null){
     header("location: addPayment.php");
   }
   $cnumber =  str_pad($paymentInfo[0]["cnumber"],16,"*",STR_PAD_LEFT);
@@ -30,14 +34,20 @@
   ?>
 <div class="container justify-content-center">
   <h1 class="league display-3 text-center my-4">Payment Method Information:</h1>
-  <div class="row">
-  <div class="d-grid col-10">
-    <button class="btn btn-secondary btn-lg" type="button"><?php echo $display;?></button>
+  <div class="card">
+  <div class="card-header text-center">
+  <h2><?php echo $cnumber;?></h2>
   </div>
-  <div class="col-2">
-        <button id ="deleteButton" type="button" class="btn btn-danger btn-lg" onClick="deleteImage()" >X</button>
+  <div class="card-body">
+    <h3 class="card-title  text-center"><strong><?php echo $ctitular;?></strong></h3>
+    <h4 class="card-text  text-center"><?php echo "{$cmonth}/20{$cyear}";?></h4>
+    <form  action="includes/included-payment.php"   method="post" ><div class="d-grid">
+      <button type="submit"  name="deletePayment" class="btn btn-danger btn-lg">Delete</button>
+    </div></form>
   </div>
-  </div>
+</div>
+
+
 </div>
 
 <?php include "notification.php"?>
