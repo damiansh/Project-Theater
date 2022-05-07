@@ -30,10 +30,10 @@ CREATE TABLE plays
     stime datetime NOT NULL,
     etime datetime NOT NULL,
     pURL varchar(255) NOT NULL,
-    accessed  datetime,
     published  tinyint(1)  DEFAULT 0 not null
 );
 
+CREATE VIEW latestplay AS SELECT * FROM plays ORDER BY play_id DESC LIMIT 1;
 
 CREATE TABLE seats (
     ticket_id int(11) auto_increment PRIMARY KEY not null, 
@@ -41,19 +41,21 @@ CREATE TABLE seats (
     seat_number tinyint (2) NOT NULL,
     cost decimal(19,4) NOT NULL,
     user_id  int(11) DEFAULT 0 NOT NULL,
+    status tinyint (1) DEFAULT 0 NOT NULL,
     reserved datetime,
     FOREIGN KEY (play_id) REFERENCES plays(play_id)
 );
 
+CREATE VIEW cart AS SELECT * FROM seats WHERE status = 1 ORDER BY reserved ASC;
 
 
-
-CREATE VIEW latestplay AS SELECT * FROM plays ORDER BY play_id DESC LIMIT 1;
 
 CREATE TABLE payment (
     user_id  int(11) PRIMARY KEY NOT NULL,
     cnumber int(11) NOT NULL, 
     ctitular varchar(255) NOT NULL,
+    cbilling varchar(255) NOT NULL,
+    czip int(5) NOT NULL,
     cmonth tinyint (2) NOT NULL,
     cyear tinyint (2) NOT NULL,
     ccvc tinyint (4) NOT NULL,

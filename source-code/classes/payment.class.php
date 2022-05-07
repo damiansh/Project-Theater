@@ -27,13 +27,13 @@ class Payment extends PortalesDB{
     }
 
     //Insert payment information
-    protected function insertPaymentInfo($cnumber, $ctitular, $cmonth, $cyear, $ccvc){
+    protected function insertPaymentInfo($cnumber, $ctitular, $cmonth, $cyear, $ccvc, $cbilling, $czip){
         $userID = $_SESSION["userid"]; 
-        $query = 'INSERT INTO payment (user_id,cnumber,ctitular,cmonth,cyear,ccvc) VALUES (?,?,?,?,?,?);';
+        $query = 'INSERT INTO payment (user_id,cnumber,ctitular,cmonth,cyear,ccvc,cbilling,czip) VALUES (?,?,?,?,?,?,?,?);';
         $statement = $this->connect()->prepare($query);
         
         //to check if query was sucesfully run
-        if(!$statement->execute(array($userID,$cnumber, $ctitular, $cmonth, $cyear, $ccvc))){
+        if(!$statement->execute(array($userID,$cnumber, $ctitular, $cmonth, $cyear, $ccvc,$cbilling,$czip))){
             $statement = null;
             header("location: ../addPayment.php?error=AddingPayment");
             exit();

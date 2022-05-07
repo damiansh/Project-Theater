@@ -2,19 +2,7 @@
 <html>
 <head>
   <title>Add Payment Information</title>
-  <?php include 'dependencies.php';
-          include 'classes/db.class.php';
-          include 'classes/payment.class.php';
-          include 'classes/payment-view.class.php';
-    if(!isset($_SESSION["userid"])){
-      header("location: index.php");
-    }
-    $paymentInfo = new PaymentView();
-    $paymentInfo = $paymentInfo->getPayInfo();
-    if($paymentInfo!=null){
-      header("location: payment.php");
-    }
-  ?>
+  <?php include 'dependencies.php';?>
   <link href="css/card-js.min.css" rel="stylesheet" type="text/css" />
   <script src="js/card-js.min.js"></script>
   <style type="text/css">
@@ -28,7 +16,18 @@
   </style>
 </head>
 <body>
-<?php include 'navbar.php';?>
+<?php include 'navbar.php';
+      include 'classes/payment.class.php';
+      include 'classes/payment-view.class.php';
+      if(!isset($_SESSION["userid"])){
+        header("location: index.php");
+      }
+      $paymentInfo = new PaymentView();
+      $paymentInfo = $paymentInfo->getPayInfo();
+      if($paymentInfo!=null){
+        header("location: payment.php");
+      }
+?>
 <div class="topImg" style="background-image:url('images/welcome.jpg')">
     <div class="txt-overlay d-flex justify-content-center align-items-center">
       <h1 class="eTitle">Add Payment Information</h1>
@@ -58,7 +57,6 @@
               autocomplete="off"
               required>
 
-
         <!-- Card expiry (element that is displayed) -->
         <input class="expiry form-control"
               autocomplete="off"
@@ -80,7 +78,14 @@
               required>
 
       </div><!-- END .card-js wrapper -->
-
+        <div class="row">
+          <div class="col-lg-10 py-2">
+            <input type="text" placeholder="Enter the billing address tied to your card"  class="form-control"  name="cbilling"  required>
+          </div>
+          <div class="col-lg-2 py-2">
+            <input type="number" min="10000"  max="99999" placeholder="Zip code" class="form-control"  name="czip"  required>
+          </div>
+        </div>
 
       <!--
         -- Submit button

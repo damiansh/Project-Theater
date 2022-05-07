@@ -1,3 +1,4 @@
+<?php include "includes/included-cart.php";?>
 <!-- Navbar -->
 <div class="container-fluid">
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top black nav-padding">
@@ -19,6 +20,7 @@
           <li><a  id ="index.php" class="nav-link" href="index.php">Home</a></li>
           <!-- Navigation bar content if user is logged -->
           <?php if(isset($_SESSION["userid"])){ ?>
+          <li><a  id ="cart.php" class="nav-link" href="cart.php">Cart (<?php echo $count;?>)</a></li>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <?php  echo "{$_SESSION['userFN']} {$_SESSION['userLN']}"; ?>
@@ -28,7 +30,8 @@
             <li><a class="dropdown-item" href='#orders'>Orders</a></li>
             <li><a class="dropdown-item" href='includes/included-logout.php'>Logout</a></li>
           </ul>
-        </li>                  
+        </li>    
+              
           <?php 
           } 
           else{
@@ -52,9 +55,11 @@
   var path = window.location.pathname;
   var page = path.split("/").pop();
   currentPage = document.getElementById(page);
-  if(page ==""){
+  if(page =="" || page =="index.php"){
     currentPage = document.getElementById("index.php");
   }
-  if(page!="selectSeats.php")
-    currentPage.classList.add("active"); //we add the class active  
+  else if(page =="selectSeats.php" || page =="payment.php" || page =="addPayment.php"){
+    currentPage = document.getElementById("navbarDropdownMenuLink");
+  }
+  currentPage.classList.add("active"); //we add the class active  
 </script>

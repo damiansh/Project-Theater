@@ -10,13 +10,17 @@ if(isset($_POST["addPayment"]))
     $cmonth = $_POST["cmonth"];
     $cyear = $_POST["cyear"];
     $ccvc = $_POST["ccvc"];
+    $cbilling = $_POST["cbilling"];
+    $czip = $_POST["czip"];
+
+
 
     //Instantiate Register  Contr class
     include "../classes/db.class.php"; // needs to be loaded first
     include "../classes/payment.class.php";
     include "../classes/payment-contr.class.php";
 
-    $payment = new PaymentContr($cnumber, $ctitular, $cmonth, $cyear, $ccvc);
+    $payment = new PaymentContr($cnumber, $ctitular, $cmonth, $cyear, $ccvc, $cbilling, $czip);
 
     //Running error handlers and payment update
     $payment->addPaymentInfo();

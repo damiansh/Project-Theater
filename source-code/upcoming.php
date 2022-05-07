@@ -1,6 +1,5 @@
 <?php
    //Instantiate auth classes 
-   include "classes/db.class.php";
    include "classes/play.class.php";
    include "classes/play-view.class.php";
 
