@@ -16,8 +16,13 @@ if(!isset($_GET["playID"])){
 }   
 //Get play data 
 $playID = $_GET["playID"];
-$playCard->requestPlay($playID);
+$playCard->requestPlay($playID,0);
 $playData = $playCard->getPlayInfo();
+
+//If palyDATA is null then play doesn't exist 
+if($playData==null){
+  header("location: index.php?NOFOUND");
+}
 
 //Get the play Seats by its ID 
 $seat = new SeatView($playID);
@@ -47,7 +52,7 @@ $seat = new SeatView($playID);
         <form action="includes/included-seats.php"  method="post" onsubmit="return updatePrices()">
             <div class="row">
                 <div class="col-6">
-                    <input type="number"  placeholder="New price here" step="0.1" class="form-control"  name="cost" id="cost"  required>
+                    <input type="number"  placeholder="New price here" min="0.01" step=".01" class="form-control"  name="cost" id="cost"  required>
                     <input type="hidden"  name="seatsJSON" id="seatsJSON" required>
                 </div>
                 <div class="col-6"><button id="submitButton" name="updateCost" type="submit" class="btn btn-success" disabled>Update Price</button></div>

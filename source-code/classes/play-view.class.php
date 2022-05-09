@@ -15,8 +15,8 @@ class PlayView extends Play{
     }
     
     //gets a specific play by ID
-    public function requestPlay($playID){
-        $this->plays = $this->getPlay($playID); 
+    public function requestPlay($playID,$modal){
+        $this->plays = $this->getPlay($playID,$modal); 
     }
 
 
@@ -31,7 +31,7 @@ class PlayView extends Play{
         else{
             //Loop through all the upcoming plays 
             foreach ($plays as $play){
-                echo $this->playCard($play["play_id"],$play["play_title"],$play[$desc],$play["stime"],$play["etime"],$play["published"],$play["pURL"],$column,$modal)->saveXML();
+                echo $this->playCard($play["play_id"],$play["play_title"],$play[$desc],$play["stime"],$play["etime"],$play["published"],$play["pURL"],$column,$modal)->saveHTML();
 
             }
             echo "<script>playCard()</script>";
@@ -109,8 +109,8 @@ class PlayView extends Play{
 
     
         //Play Title <h1 class="card-title league">Here the name of the play</h1> playTitle
-        $title = $dom->createElement("h1", $playTitle); 
-        $title->setAttribute("class","card-title league text-nowrap");
+        $title = $dom->createElement("h2", $playTitle); 
+        $title->setAttribute("class","playTitle league");
         $title->setAttribute("id","CardplayTitle");
         $cardBody->appendChild($title); //is inside caption        
 
@@ -150,7 +150,7 @@ class PlayView extends Play{
 
         //Purchase <button type="button" class="btn btn-secondary">Purchase or Log In </button> 
         if($modal==0){ //only purchase if in homepage
-            $purchase = $dom->createElement('a', 'Purchase'); 
+            $purchase = $dom->createElement('a', 'Select your seats'); 
             $purchase->setAttribute("href","selectSeats.php?playID=" . urlencode($playID));
             if(!isset($_SESSION["userid"])){
                 $purchase = $dom->createElement('a', 'Login'); 

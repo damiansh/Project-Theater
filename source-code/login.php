@@ -16,7 +16,7 @@
       <h1 class="eTitle">Login into your account</h1>
     </div>
 </div>
-  <div class="container">
+  <div class="container py-3">
     <div class="row">
       <div class="col-sm">
         <form action="includes/included-login.php" method="post">
@@ -49,6 +49,6 @@
   </div>
 
   <?php include "notification.php"?>
-
+  <?php include 'footer.php';?>
 </body>
 </html>

@@ -7,9 +7,8 @@ include "classes/seat-view.class.php";
 
 if(isset($_SESSION["userid"])){
     $cart = new SeatView(0);
-    $cart->setCart();
+    $cartData = $cart->setCart();
     $count = $cart->getCount();
-
-
-
+    
 }
+

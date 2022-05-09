@@ -13,16 +13,15 @@
 ?>
 <form   action="includes/included-play.php"  method="post">
     <div class="form-floating mb-3">
-        <input type="text" placeholder="Play Title" <?php echo $playTitle;?> class="form-control"  name="playTitle" id="playTitle" <?php echo $method;?> required>
+        <input type="text" placeholder="Play Title" <?php echo $playTitle;?> class="form-control"  name="playTitle" id="playTitle" <?php echo $method;?> maxlength="36"  required>
         <label for="playTitle">Play Title:</label>
     </div>
     <div class="form-floating mb-3">
-        <input type="text" placeholder="Short synopsis for the play" <?php echo $short;?> class="form-control"  name="shortDesc" id="shortDesc" maxlength="144" <?php echo $method;?> required>
+        <input type="text" placeholder="Short synopsis for the play" <?php echo $short;?> class="form-control"  name="shortDesc" id="shortDesc" maxlength="300" <?php echo $method;?> required>
         <label for="shortDesc" class="form-label">Short Synopsis:</label>
     </div>
     <div class="form-floating mb-3">
-        <textarea class="form-control" id="longDesc" name="longDesc"  maxlength="1000" required placeholder="Longer description of the play" style="height: 100px">
-        <?php echo $long;?></textarea>
+        <textarea class="form-control" id="longDesc" name="longDesc"  maxlength="1500" required placeholder="Longer description of the play" style="height: 100px"><?php echo $long;?></textarea>
         <label for="longDesc">Long Description:</label>
     </div>
     <div class="row g-2">
@@ -37,7 +36,7 @@
     </div>
     <?php if(!isSet($playID)): ?>   
     <div class="form-floating mb-3">
-        <input type="number" value="20" placeholder="Default Price for Seats"  step="0.1" class="form-control"  name="cost" id="cost" required>
+        <input type="number" value="20" placeholder="Default Price for Seats"  min="0.01" step=".01" class="form-control"  name="cost" id="cost" required>
         <label for="cost" class="form-label">Default Price:</label>
     </div> 
     <?php endif; ?>   

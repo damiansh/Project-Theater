@@ -33,8 +33,7 @@
       <h1 class="eTitle">Add Payment Information</h1>
     </div>
 </div>
-<div class="container justify-content-center">
-
+<div class="container justify-content-center py-3">
   <form  action="includes/included-payment.php"  id="paymentForm" method="post" >
       <h1 class="league display-3 text-center my-4">Your Card Details:</h1>
       <!--
@@ -99,6 +98,7 @@
 
 
 <?php include "notification.php"?>
+<?php include 'footer.php';?>
 
 </body>
 

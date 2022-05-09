@@ -45,7 +45,6 @@ class PlayContr extends Play{
     }
     //Missing Inputs
     private function missingInput(){
-        $result = false;
         $a = empty($this->playTitle);
         $b = empty($this->shortDesc);
         $c = empty($this->longDesc);
@@ -55,45 +54,51 @@ class PlayContr extends Play{
 
 
         if($a || $b || $c || $d || $e || $f){
-            $result = true;
+            return true; 
         }
-        return $result;
+        return false; 
     }
 
     //Check end date time is less than start date
     private function isEndDateLess(){
-        $result = false; 
         $sDate = $this->sDate; 
         $eDate = $this->eDate; 
         if($eDate<=$sDate){
-            $result = true; 
+            return true; 
         }
-        return $result; 
+        return false; 
     }
 
     //Check if dates are in different date 
     private function areDatesDifferent(){
-        $result = false; 
         $sDate = $this->sDate; 
         $eDate = $this->eDate; 
         $sDate = date('m/d/Y',strtotime($sDate));
         $eDate = date('m/d/Y',strtotime($eDate));
 
         if($eDate!=$sDate){
-            $result = true; 
+            return true; 
         }
-        return $result; 
+        return false; 
     }    
 
+    //Title cannot be longer than 36 characters
+    private function isTitleLonger(){
+        $title = strlen($this->playTitle);
+        if($title > 36){
+            return true;
+        }
+        return false; 
+     }
 
-    //Short Description Length 
+     
+    //Short Description cannot be longer than 36 characters
     private function isShortLonger(){
-       $result = false; 
        $shortDescL = strlen($this->shortDesc);
-       if($shortDescL > 144){
-           $result = true;
+       if($shortDescL > 300){
+           return true;
        }
-       return $result; 
+       return false; 
     }
 
     private function errorHandlers($page,$playID){
@@ -122,10 +127,18 @@ class PlayContr extends Play{
         //Error handling short description higher than expected
         if($this->isShortLonger()){
             $sl = strlen($this->shortDesc); 
-            $_SESSION["message"] = "Error: Your short description cannot be more than 144 characters. {$sl}"; 
+            $_SESSION["message"] = "Error: Your short description cannot be more than 300 characters. ({$sl})"; 
             header("location: ../{$page}.php?{$playID}DateError");
             exit();
-        }        
+        }  
+
+        //Error handling title higher than expected
+        if($this->isTitleLonger()){
+            $sl = strlen($this->playTitle); 
+            $_SESSION["message"] = "Error: Your play title cannot be more than 36 characters ({$sl})"; 
+            header("location: ../{$page}.php?{$playID}DateError");
+            exit();
+        }                
     }
 
 

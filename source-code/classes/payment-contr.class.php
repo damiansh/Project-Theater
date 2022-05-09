@@ -102,7 +102,7 @@ class PaymentContr extends Payment{
      //Check if card is valid 
      private function isValid(){
         $ccode = $this->ccvc;
-        $digits = $ccode !== 0 ? floor(log10($ccode) + 1) : 1;
+        $digits = strlen($ccode);
         if($digits<3 || $digits>3){
             return true; 
         }

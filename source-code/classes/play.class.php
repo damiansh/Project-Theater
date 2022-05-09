@@ -154,19 +154,32 @@ class Play extends PortalesDB{
     }
 
 
-     //Method that gets an individual play 
-     protected function getPlay($playID){
+     //Method that gets an individual play MODAL = 0 no criteria, MODAL = 1 then only published and upcoming plays
+     protected function getPlay($playID,$modal){
         $query = 'SELECT * FROM plays WHERE play_id=?;';
-        $statement = $this->connect()->prepare($query);
-        
-     
-        //this checks if the query is executed sucesfully 
-        if(!$statement->execute(array($playID))){
-            $statement = null;
-            header("location: ../index.php?error=loadingSinglePlay");
-            exit();
-        }  
+        //change exeuction if modal 1
+        if($modal==1){
+            date_default_timezone_set('America/Boise'); // change to MOUNTAIN TIME
+            $currentDate = date('Y-m-d H:i:s'); //get currentDateTime
+            $query = 'SELECT * FROM plays WHERE play_id=? AND stime>=? and published = ?;';
+            $statement = $this->connect()->prepare($query);
 
+            //this checks if the query is executed sucesfully 
+            if(!$statement->execute(array($playID,$currentDate,1))){
+                $statement = null;
+                header("location: ../index.php?error=loadingSinglePlay");
+                exit();
+            }  
+        }
+        else{
+            $statement = $this->connect()->prepare($query);
+            //this checks if the query is executed sucesfully 
+            if(!$statement->execute(array($playID))){
+                $statement = null;
+                header("location: ../index.php?error=loadingSinglePlay");
+                exit();
+            }  
+        }
 
         //If there is not plays that meet the criteria
         if($statement->rowCount()==0){

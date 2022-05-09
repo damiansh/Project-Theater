@@ -27,7 +27,7 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="payment.php">Payment Method</a></li>
-            <li><a class="dropdown-item" href='#orders'>Orders</a></li>
+            <li><a class="dropdown-item" href='orders.php'>Orders</a></li>
             <li><a class="dropdown-item" href='includes/included-logout.php'>Logout</a></li>
           </ul>
         </li>    
@@ -58,7 +58,7 @@
   if(page =="" || page =="index.php"){
     currentPage = document.getElementById("index.php");
   }
-  else if(page =="selectSeats.php" || page =="payment.php" || page =="addPayment.php"){
+  else if(page =="selectSeats.php" || page =="payment.php" || page =="addPayment.php" || page =="orders.php"){
     currentPage = document.getElementById("navbarDropdownMenuLink");
   }
   currentPage.classList.add("active"); //we add the class active  

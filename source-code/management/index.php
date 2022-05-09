@@ -19,7 +19,7 @@ $plays = $plays->getPlayInfo();
 if(isset($_GET["playID"])){
   $playCard = new PlayView();
   $playID = $_GET["playID"];
-  $playCard->requestPlay($playID);
+  $playCard->requestPlay($playID,0);
   //Get play data 
   $playData = $playCard->getPlayInfo();
   //check if playID exists 

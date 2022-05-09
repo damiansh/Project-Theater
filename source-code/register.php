@@ -67,6 +67,7 @@
   </div>
 <br>
 <?php include "notification.php"?>
+<?php include 'footer.php';?>
 
 </body>
 </html>

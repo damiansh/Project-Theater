@@ -19,6 +19,7 @@
 </div>
 <?php include 'upcoming.php';?>
 
+<?php include 'footer.php';?>
 
 </body>
 

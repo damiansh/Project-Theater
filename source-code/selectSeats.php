@@ -15,15 +15,21 @@ $playCard = new PlayView();
 if(!isset($_GET["playID"])){
     header("location: index.php?noSeatData");
 }  
-else{
-  if(!isset($_SESSION["userid"])){
-    header("location: login.php");
-}  
+elseif(!isset($_SESSION["userid"])){
+  header("location: login.php");
 } 
+
+include 'includes/isTherePaymentInfo.php';
+
 //Get play data 
 $playID = $_GET["playID"];
-$playCard->requestPlay($playID);
+$playCard->requestPlay($playID,1);
 $playData = $playCard->getPlayInfo();
+
+//If palyDATA is null then play doesn't exist 
+if($playData==null){
+  header("location: index.php?NOFOUND");
+}
 
 //Get the play Seats by its ID 
 $seat = new SeatView($playID);
@@ -64,7 +70,8 @@ $seat = new SeatView($playID);
     </div>
   </div>
 </div>
-<?php include "notification.php"?>
+<?php include 'footer.php';?>
+
 </body>
 
 </html>

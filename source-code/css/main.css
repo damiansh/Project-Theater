@@ -20,6 +20,8 @@ body {
   background-color: #333;
 }
 
+
+
 .nMessage{
   color:red;
   font-weight: bold;
@@ -83,8 +85,17 @@ body {
 
 }
 
+.playTitle{
+  font-size: 1.9rem;
+}
 
+.ticket{
+  font-size: 1.9rem;
+}
 
+.phoneWarning{
+  display:none;
+}
 
 /*md*/ 
 @media (max-width:768px){
@@ -94,6 +105,7 @@ body {
   .eTitle{
     font-size: calc(2.52rem + 3.3vw);
   }
+
 }
 
 
@@ -105,8 +117,21 @@ body {
   .seat{
     font-size:0.66rem;
   }
+  .accTxt{
+    font-size:0.70rem;
+  }
+  .reportTable{
+    display:none;
+  }
+  .phoneWarning{
+    display:block;
+  }
 }
 
+@media print {
+  div {
+    break-inside: avoid;
+  }
 
-
-
+  
+}

@@ -37,10 +37,12 @@ else if(isset($_SESSION["userid"])){
         $seatStatus = $seatPlan->addtoCart(); 
         echo $seatStatus["available"];
         if($seatStatus["available"]!=""){
-            $available =  "The seats [{$seatStatus['available']}] have been added to your shopping cart.";
+            $available = rtrim($seatStatus["available"],", ");
+            $available =  "The seats [{$available}] have been added to your shopping cart.";
         }
         if($seatStatus["unavailable"]!=""){
-            $unavailable =  "<br>The seats [{$seatStatus['unavailable']}] have been purchased or reserved by another customer.";
+            $unavailable = rtrim($seatStatus["unavailable"],", ");
+            $unavailable =  "<br>The seats [{$unavailable}] have been purchased or reserved by another customer.";
         }
         //Going to back 
         $_SESSION["message"] = "{$available}{$unavailable}";

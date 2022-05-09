@@ -13,6 +13,40 @@ class SeatContr extends Seat{
         $this->updatePrice($this->seats); 
     }
 
+
+     //function to set price of given seats
+    public function prepareCheckout(){
+        $seats = $this->seats; 
+        //error handler to confirm seat is still available 
+        foreach ($seats as $seat){
+            if(!$this->confirmCart($seat["ticket_id"])){
+                $_SESSION["message"] = "The reservation of some seats has expired. Try clicking checkout again or add more seats if you wish to.";
+                header("location: ../cart.php");
+                exit();
+            }        
+        }
+        $transactionID = $this->startTransaction(); //we start a new transaction
+        $total = 0;
+        foreach ($seats as $seat){
+            $this->updateReservation($seat["ticket_id"],2,null,$_SESSION["userid"],$transactionID); //sets the status to purchased
+            $total = $total + $seat["cost"];
+        }
+        $total = number_format($total,2);
+        $this->confirmationEmail($transactionID,$total); //send confirmation email for the purchase 
+        return $transactionID; //return transaction id 
+
+    }
+
+    //removes ticket from cart
+    public function removeFromCart($ticket){
+        if(!$this->confirmCart($ticket)){
+            header("location: ../cart.php");
+            exit();
+        }
+        $this->updateReservation($ticket,0,null,0,null);
+    }
+
+
     //function that adds seats to the shopping cart
     //Shopping cart is where seats have an user id and its status are 1 
     public function addtoCart(){
@@ -25,52 +59,16 @@ class SeatContr extends Seat{
         $seatStatus["unavailable"] = ""; // list of already reserved seats
         foreach ($selected as $current){
             if($current["status"] == 0){
-                $this->updateReservation($current,1,$currentDate,$_SESSION["userid"]); //reserves the seat for the user
-                $seatTag = $this->seatRowCol($current['ticket_id']);
+                $this->updateReservation($current["ticket_id"],1,$currentDate,$_SESSION["userid"],null); //reserves the seat for the user
+                $seatTag = $this->seatRowCol($current['seat_number']);
                 $seatStatus["available"] = "{$seatStatus["available"]}{$seatTag}, ";
             }
             elseif($current["status"] == 1 || $current["status"] == 2){
-                $seatTag = $this->seatRowCol($current['ticket_id']);
+                $seatTag = $this->seatRowCol($current['seat_number']);
                 $seatStatus["unavailable"] = "{$seatStatus["unavailable"]}{$seatTag}, ";
             }
         }
         return $seatStatus;
-    }
-
-    private function seatRowCol($number){
-        if($number<=12){
-            $seatN = $number-(12*0);
-            return "A{$seatN}";
-        }
-        elseif($number<=24){
-            $seatN = $number-(12*1);
-            return "B{$seatN}";
-        }
-        elseif($number<=36){
-            $seatN = $number-(12*2);
-            return "C{$seatN}";
-        }
-        elseif($number<=48){
-            $seatN = $number-(12*3);
-            return "D{$seatN}";
-        }
-        elseif($number<=60){
-            $seatN = $number-(12*4);
-            return "E{$seatN}";
-        }
-        elseif($number<=72){
-            $seatN = $number-(12*5);
-            return "F{$seatN}";
-        }
-        elseif($number<=84){
-            $seatN = $number-(12*6);
-            return "G{$seatN}";
-        }
-        elseif($number<=96){
-            $seatN = $number-(12*7);
-            return "H{$seatN}";
-        }
-
     }
 
 }

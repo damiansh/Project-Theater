@@ -20,7 +20,7 @@ class Register extends PortalesDB{
         //we send confirmation email 
         require 'sendEmail.php';
         require '../vendor/autoload.php';
-        portalesEmail($email,"Los Portales Theatre Email Confirmation",$this->emailBody($code,$email,$fname,$lname));
+        portalesEmail($email,"Email Confirmation, Activate your account now!",$this->emailBody($code,$email,$fname,$lname));
         $statement = null;
     
     }
@@ -46,12 +46,14 @@ class Register extends PortalesDB{
     }
 
     protected function emailBody($activation,$email, $fname, $lname){
-        $greeting = "Thank you <strong>{$fname} {$lname}</strong> for joining us on Los Portales Theatre!<br>";
+        $greeting = "<h2>Welcome {$fname} {$lname} to Los Portales Theatre!</h2>";
+        $greeting = "{$greeting}<p>Thank you for joining us.</p>";
+        $greeting = "{$greeting}<p>Before you can start enjoying all the benefits of Los Portales Theatre, you need to activate your account.</p>";
         $hostname = getenv('HTTP_HOST');
         $link ="http://{$hostname}/auth/activate.php?email={$email}&code={$activation}";
         $link ="http://{$hostname}/losportales/auth/activate.php?email={$email}&code={$activation}"; //comment this when testing live
         $a = "<a href='{$link}' target='_blank'><strong>here</strong></a>";
-        $body ="{$greeting}Please click {$a} to confirm your account.";
+        $body ="{$greeting}<p>Please click {$a} to confirm and activate your account on Los Portales Theatre.</p>";
         return "<html>{$body}</html>";
     }
 }
