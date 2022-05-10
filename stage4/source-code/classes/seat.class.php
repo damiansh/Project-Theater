@@ -83,7 +83,7 @@ class Seat extends PortalesDB{
      * @return object|null $seats object with the seats information 
      */       
      protected function getSeats($play_id){
-        $query = 'SELECT * FROM seats WHERE play_id=?;';
+        $query = 'SELECT * FROM seats WHERE play_id=? ORDER BY seat_number ASC;';
         $statement = $this->connect()->prepare($query);
         
      
