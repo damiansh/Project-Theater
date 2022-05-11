@@ -89,6 +89,10 @@ class PlayView extends Play{
      * @return HTML $dom, the html createad gets returne to the printPlays 
      */    
    public function playCard($playID, $playTitle, $desc,$sTimeR, $eTimeR, $published, $pURL, $column, $modal){
+        //htmlspecialchars 
+        $playTitle = htmlspecialchars($playTitle);
+        $desc = htmlspecialchars($desc);
+
         //Creaste DOM ELEMENT
         $dom = new DOMDocument('1.0', 'utf-8');
         //Set Date and Time  Format

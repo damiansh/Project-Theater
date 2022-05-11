@@ -65,11 +65,11 @@ if(isset($_GET["playID"])){
       //fields variables
       $inputID = $playData[0]["play_id"];
       $inputID = "value='{$inputID}'";
-      $playTitle = $playData[0]["play_title"];
-      $playTitle = "value='{$playTitle}'";
-      $short = escape($playData[0]["short_desc"]);
-      $short = "value='{$short}'";
-      $long = escape($playData[0]["long_desc"]);
+      $playTitle = htmlspecialchars($playData[0]["play_title"]);
+      $playTitle = 'value="' . $playTitle . '"';
+      $short = htmlspecialchars($playData[0]["short_desc"]);
+      $short = 'value="' . $short . '"';
+      $long = htmlspecialchars($playData[0]["long_desc"]);
       $start = $playData[0]["stime"];
       $start =  date('Y-m-d\TH:i',strtotime($start));
       $start = "value='{$start}'";
